@@ -22,10 +22,10 @@ class Bot(commands.Bot):
 
     def __init__(self):
         # This is the stuff that gets run at startup
-        super().__init__(command_prefix='/',self_bot=False,activity=discord.Game(self.activity))
+        super().__init__(command_prefix='>',self_bot=False,activity=discord.Game(self.activity))
         random.seed()
-        self.quit_val = random.randint(100000000000,999999999999)
-        self.remove_command('help')
+        self.add_command(self.help)
+        self.add_command(self.quit)
         self.read_token()
 
         if self.token is not None:
@@ -48,11 +48,8 @@ class Bot(commands.Bot):
             print("Token file not found")
 
     async def on_ready(self):
-        # This creates the quitval and saves it to my server
         print("Logged on")
-        print(self.quit_val)
-        #with open("char_" + str(self.quit_val),"w") as file:
-        #    file.write(str(self.quit_val))
+
 
     async def on_message(self, message):
         # this function is executed when a message is recieved
@@ -67,44 +64,33 @@ class Bot(commands.Bot):
         # Checks the contents against the predefined phrases
         for phrase in self.phrases:
             if phrase in contents:
-                # replies with a generated keysmash
                 await channel.send(choice(self.replies))
                 return
 
-        if str(channel.name) != 'h-mestuck':
-            for w in contents:
-                if w in self.x1:
-                    wlist = []
-                    wlist.append(w)
-                    await channel.send(self.gen_reply(wlist, 1))
-                    return
-            l = 0
-            wlist = []
-            for w in contents:
-                if w in self.x2:
-                    print(w + ' ' + str(l))
-                    wlist.append(w)
-                    l = l + 1
-            if l >= 2:
-                await channel.send(self.gen_reply(wlist, 2))
-
-        if str(self.quit_val) in contents:
-            await channel.send(self.logoff_msg)
-            await self.close()
-
-    def gen_reply(self, words, type):
-        msg = 'u said'
-        for w in words:
-            msg = msg + ' `'  + w + '`'
-            if w != words[len(words) - 1]:
-                msg = msg + ', '
-        msg = msg + ' - '
-        if type == 1:
-            msg = msg + choice(self.hs_replies)
-        elif type == 2:
-            msg = msg + choice(self.suspicious)
-        return msg
-
+        
+    @commands.command(pass_context=True)
+    async def help(ctx):
+        #this is the help command.
+        help_msg = '```<+> DSN BOT <+>\n' + \
+            'a discord bot to communicate with space probes ' + \
+            'at lightpseed :/' + \
+            '\nusage:          >command [params]*' + \
+            '\n --- availible commands ---' + \
+            '\n>help                               shows this message' + \
+            '\n>quit                               shuts down the bot (only works for starmaid)' + \
+            '```'
+        await ctx.send(help_msg)
+        return
+        
+    @commands.command(pass_context=True)
+    async def quit(ctx):
+        # quits the bot.
+        if str(ctx.message.author) == 'starmaid#6925':
+            await ctx.send(ctx.bot.logoff_msg)
+            await ctx.bot.close()
+        else:
+            await ctx.send('`you do not have permission to shut me down.`')
+        return
 
 if __name__ == '__main__':
     Bot()
