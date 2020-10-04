@@ -33,7 +33,7 @@ while not story_update:
     
     if webpage.status_code != 404:
         # if we actually get a chapter back, increase the counter
-        last_update['story'] = str(current)
+        last_update['story'] = str(next)
         story_update = True
     else:
         time.sleep(30)
@@ -56,7 +56,7 @@ if story_update:
         if story_update:
             #send a story update to the story channel
             for c in story_chan:
-                await c.send('`WHAT COLLEGE FOOTBALL LOOKS LIKE IN THE FUTURE #' + str(current) + ':` ' + link)
+                await c.send('`WHAT COLLEGE FOOTBALL WILL LOOK LIKE IN THE FUTURE #' + str(next) + ':` ' + link)
         await client.close()
 
     def read_token():

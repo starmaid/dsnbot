@@ -19,14 +19,14 @@ try:
 except:
     last_update = {"story": "1", "jon": "None"}
 
-# story updates
-jon_updates = False
+# jon updates
+jon_update = False
 jon = feedparser.parse('https://www.sbnation.com/authors/jon-bois/rss')
 title = jon['entries'][0]['title']
 link = jon['entries'][0]['link']
-if last_update['story'] != title:
+if last_update['jon'] != title:
     jon_update = True
-    last_update['story'] = title
+    last_update['jon'] = title
 
 
 # send the messages maybe

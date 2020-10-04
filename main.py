@@ -1,17 +1,22 @@
-# main for deep space network, a 17776 bot
+# destiny assistant bot for my destiny server
 # author Nicky (@starmaid#6925)
-# created 10/3/2020
-# edited NA
+# created 05/06/2020
+# edited 05/07/2020
 # version 1.0
 
 import discord
+from datetime import datetime, timezone, timedelta
+from dateutil import parser
+import asyncio
 from discord.ext import commands
 import random
 from random import choice
 
+
+
 class Bot(commands.Bot):
     phrases = [
-        'DSN'
+        'dsn'
     ]
     replies = [
         '`STATUS: GOOD`'
@@ -22,8 +27,8 @@ class Bot(commands.Bot):
 
     def __init__(self):
         # This is the stuff that gets run at startup
-        super().__init__(command_prefix='>',self_bot=False,activity=discord.Game(self.activity))
-        random.seed()
+        super().__init__(command_prefix='..',self_bot=False,activity=discord.Game(self.activity))
+        self.remove_command('help')
         self.add_command(self.help)
         self.add_command(self.quit)
         self.read_token()
@@ -39,49 +44,28 @@ class Bot(commands.Bot):
             with open('./token.txt','r') as fp:
                 self.token = fp.readlines()[0].strip('\n')
         except:
-            pass
-        try:
-            if self.token is None:
-                with open('./dsnbot/token.txt','r') as fp:
-                    self.token = fp.readlines()[0].strip('\n')
-        except:
-            print("Token file not found")
+            print('Token file not found')
 
     async def on_ready(self):
-        print("Logged on")
+        print('Logged on')
 
 
-    async def on_message(self, message):
-        # this function is executed when a message is recieved
-        if message.author == self.user:
-            # ignore yourself
-            return
-        # turn the whole message lowercase
-        contents = message.clean_content.lower().split(' ')
-        # finds where the message came from
-        channel = message.channel
-
-        # Checks the contents against the predefined phrases
-        for phrase in self.phrases:
-            if phrase in contents:
-                await channel.send(choice(self.replies))
-                return
-
-        
     @commands.command(pass_context=True)
     async def help(ctx):
+        print("help")
         #this is the help command.
-        help_msg = '```<+> DSN BOT <+>\n' + \
+        help_msg = '```<..> DSN BOT <..>\n' + \
             'a discord bot to communicate with space probes ' + \
-            'at lightpseed :/' + \
-            '\nusage:          >command [params]*' + \
+            'at lightpseed' + \
+            '\nusage:          ..command [params]*' + \
             '\n --- availible commands ---' + \
-            '\n>help                               shows this message' + \
-            '\n>quit                               shuts down the bot (only works for starmaid)' + \
+            '\n..help                               shows this message' + \
+            '\n..quit                               shuts down the bot (only works for starmaid)' + \
             '```'
         await ctx.send(help_msg)
         return
-        
+
+
     @commands.command(pass_context=True)
     async def quit(ctx):
         # quits the bot.
@@ -91,6 +75,7 @@ class Bot(commands.Bot):
         else:
             await ctx.send('`you do not have permission to shut me down.`')
         return
+
 
 if __name__ == '__main__':
     Bot()
