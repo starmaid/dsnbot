@@ -27,7 +27,7 @@ class Bot(commands.Bot):
 
     def __init__(self):
         # This is the stuff that gets run at startup
-        super().__init__(command_prefix='..',self_bot=False,activity=discord.Game(self.activity))
+        super().__init__(command_prefix='./',self_bot=False,activity=discord.Game(self.activity))
         self.remove_command('help')
         self.add_command(self.help)
         self.add_command(self.quit)
@@ -52,15 +52,14 @@ class Bot(commands.Bot):
 
     @commands.command(pass_context=True)
     async def help(ctx):
-        print("help")
         #this is the help command.
-        help_msg = '```<..> DSN BOT <..>\n' + \
+        help_msg = '```<./> DSN BOT <./>\n' + \
             'a discord bot to communicate with space probes ' + \
             'at lightpseed' + \
-            '\nusage:          ..command [params]*' + \
+            '\nusage:          ./command [params]*' + \
             '\n --- availible commands ---' + \
-            '\n..help                               shows this message' + \
-            '\n..quit                               shuts down the bot (only works for starmaid)' + \
+            '\n./help                               shows this message' + \
+            '\n./quit                               shuts down the bot (only works for starmaid)' + \
             '```'
         await ctx.send(help_msg)
         return
