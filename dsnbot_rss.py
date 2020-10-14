@@ -32,11 +32,11 @@ if last_update['jon'] != title:
 # ao3 updates
 ao3_update = False
 ao3 = feedparser.parse('https://archiveofourown.org/tags/17107986/feed.atom')
-title = ao3['entries'][0]['title']
+updated = ao3['entries'][0]['updated']
 link = ao3['entries'][0]['link']
-if last_update['ao3'] != title:
+if last_update['ao3'] != updated:
     ao3_update = True
-    last_update['ao3'] = title
+    last_update['ao3'] = updated
 
 
 # send the messages maybe
@@ -62,7 +62,7 @@ if jon_update or ao3_update:
                 await c.send('`NEW JON ARTICLE:` ' + link)
         if ao3_update:
             for c in ao3_chan:
-                await c.send('`NEW FIC:` ' + link)
+                await c.send('`UPDATED FIC:` ' + link)
         await client.close()
 
     def read_token():
