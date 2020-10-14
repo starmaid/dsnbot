@@ -3,8 +3,9 @@
 # put that shit as a cron job
 # author Nicky (@starmaid#6925)
 # created 10/3/2020
-# edited NA
-# version 1.0
+# edited 10/14/2020
+# version 1.1
+# added ao3 functionality
 
 import feedparser
 import requests
