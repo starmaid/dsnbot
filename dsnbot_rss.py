@@ -24,7 +24,7 @@ except:
 jon_update = False
 jon = feedparser.parse('https://www.sbnation.com/authors/jon-bois/rss')
 title = jon['entries'][0]['title']
-link = jon['entries'][0]['link']
+linkj = jon['entries'][0]['link']
 if last_update['jon'] != title:
     jon_update = True
     last_update['jon'] = title
@@ -33,7 +33,7 @@ if last_update['jon'] != title:
 ao3_update = False
 ao3 = feedparser.parse('https://archiveofourown.org/tags/17107986/feed.atom')
 updated = ao3['entries'][0]['updated']
-link = ao3['entries'][0]['link']
+linka = ao3['entries'][0]['link']
 if last_update['ao3'] != updated:
     ao3_update = True
     last_update['ao3'] = updated
@@ -59,10 +59,10 @@ if jon_update or ao3_update:
         if jon_update:
             #send a story update to the story channel
             for c in jon_chan:
-                await c.send('`NEW JON ARTICLE:` ' + link)
+                await c.send('`NEW JON ARTICLE:` ' + linkj)
         if ao3_update:
             for c in ao3_chan:
-                await c.send('`UPDATED FIC:` ' + link)
+                await c.send('`UPDATED FIC:` ' + linka)
         await client.close()
 
     def read_token():
