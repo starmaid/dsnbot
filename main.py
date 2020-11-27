@@ -2,7 +2,8 @@
 # author Nicky (@starmaid#6925)
 # created 05/06/2020
 # edited 05/07/2020
-# version 1.0
+# edited 11/27/2020: added aternos functions
+# version 1.1
 
 import discord
 from datetime import datetime, timezone, timedelta
@@ -11,7 +12,7 @@ import asyncio
 from discord.ext import commands
 import random
 from random import choice
-
+from connect_and_launch import start_server, get_status, stop_server
 
 
 class Bot(commands.Bot):
@@ -31,6 +32,10 @@ class Bot(commands.Bot):
         self.remove_command('help')
         self.add_command(self.help)
         self.add_command(self.quit)
+        self.add_command(self.launch)
+        self.add_command(self.players)
+        self.add_command(self.status)
+        self.add_command(self.stop)
         self.read_token()
 
         if self.token is not None:
@@ -58,8 +63,12 @@ class Bot(commands.Bot):
             'at lightpseed' + \
             '\nusage:          ./command [params]*' + \
             '\n --- availible commands ---' + \
-            '\n./help                               shows this message' + \
-            '\n./quit                               shuts down the bot (only works for starmaid)' + \
+            '\n./help                shows this message' + \
+            '\n./quit                shuts down the bot (only works for starmaid)' + \
+            '\n./launch              starts the aternos minecraft server' + \
+            '\n./status              shows status of aternos minecraft server' + \
+            '\n./players             shows current players in aternos minecraft server' + \
+            '\n./stop                stops aternos minecraft server' + \
             '```'
         await ctx.send(help_msg)
         return
@@ -74,6 +83,47 @@ class Bot(commands.Bot):
         else:
             await ctx.send('`you do not have permission to shut me down.`')
         return
+
+    @commands.command(pass_context=True)
+    async def launch(ctx):
+        # launches aternos
+        await ctx.message.channel.send("Launching Server...")
+        status = get_status()
+
+        if status == "Offline":
+            await start_server
+        elif status == "Online":
+            await ctx.message.channel.send("The server is already Online")
+        else :
+            await ctx.message.channel.send("An error occured. Either the status server is not responding, or you didn't set the server name correctly.\nTrying to launch server anyway.")
+            await start_server
+
+
+    @commands.command(pass_context=True)
+    async def status(ctx):
+        # status of aternos
+        await ctx.message.channel.send("Getting status...")
+        status = get_status()
+        await ctx.message.channel.send("The server is {}".format(status))
+
+
+    @commands.command(pass_context=True)
+    async def players(ctx):
+        # launches aternos
+        await ctx.message.channel.send("Getting players...")
+        try:
+            players = get_number_of_players()
+        except:
+            await ctx.message.channel.send("There are no players on the server")
+        else:
+            await ctx.message.channel.send("There are {} players on the server".format(players))
+
+
+    @commands.command(pass_context=True)
+    async def stop(ctx):
+        # launches aternos
+        await ctx.message.channel.send("Stopping the server.")
+        await stop_server
 
 
 if __name__ == '__main__':
