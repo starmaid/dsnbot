@@ -32,8 +32,9 @@ if last_update['jon'] != title:
 # ao3 updates
 ao3_update = False
 ao3 = feedparser.parse('https://archiveofourown.org/tags/17107986/feed.atom')
-updated = ao3['entries'][0]['updated']
-linka = ao3['entries'][0]['link']
+sortedlist = sorted(ao3['entries'], key=lambda k: k['updated'], reverse=True)
+updated = sortedlist[0]['updated']
+link = sortedlist[0]['link']
 if last_update['ao3'] != updated:
     ao3_update = True
     last_update['ao3'] = updated
@@ -59,7 +60,7 @@ if jon_update or ao3_update:
         if jon_update:
             #send a story update to the story channel
             for c in jon_chan:
-                await c.send('`NEW JON ARTICLE:` ' + linkj)
+                await c.send('@everyone `NEW JON ARTICLE:` ' + linkj)
         if ao3_update:
             for c in ao3_chan:
                 await c.send('`UPDATED FIC:` ' + linka)
