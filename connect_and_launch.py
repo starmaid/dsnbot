@@ -1,7 +1,7 @@
 # Connect and launch
 # written by https://github.com/Mekolaos
 # not quite a fork because im using it inside my bot
-# edited 11/27/2020
+# edited 12/15/2020
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -27,7 +27,9 @@ except:
 URL = "https://aternos.org/go/"
 USER = creds["username"]
 PASSWORD = creds["password"]
-SERVER_STATUS_URI = "http://" + creds["statusURI"]
+
+# depreciated
+# SERVER_STATUS_URI = "http://" + creds["statusURI"]
 
 
 connected = False
@@ -44,43 +46,52 @@ async def start_server():
     """ Starts the server by clicking on the start button.
         The try except part tries to find the confirmation button, and if it
         doesn't, it continues to loop until the confirm button is clicked."""
-    if not connected:
-        connect_account()
-    await asyncio.sleep(5)
-    element = driver.find_element_by_xpath("/html/body/div/main/section/div/div[2]/div[1]/div[1]")
+    element = driver.find_element_by_xpath("//*[@id=\"start\"]")
     element.click()
     await asyncio.sleep(3)
-    print("finding start button")
-    element = driver.find_element_by_xpath('//*[@id="start"]')
-    element.click()
-    await asyncio.sleep(10)
-    element = driver.find_element_by_xpath('//*[@id="nope"]/main/div/div/div/main/div/a[1]')
-    element.click()
-    state = driver.find_element_by_xpath('//*[@id="nope"]/main/section/div[3]/div[2]/div/div/span[2]/span')
+    # hides the notification question
+    driver.execute_script('hideAlert();')
+    # server state span
+    state = driver.find_element_by_xpath('//*[@id="nope"]/main/section/div[3]'
+                                         '/div[3]/div[1]/div/span[2]/span')
     while state.text == "Waiting in queue":
-        state = driver.find_element_by_xpath('//*[@id="nope"]/main/section/div[3]/div[2]/div/div/span[2]/span')
+        # while in queue, check for the confirm button and try click it
+        await asyncio.sleep(3)
+        state = driver.find_element_by_xpath('//*[@id="nope"]/main/section/'
+                                             'div[3]/div[3]/div[1]/div/span[2]'
+                                             '/span')
         try:
             element = driver.find_element_by_xpath('//*[@id="confirm"]')
             element.click()
-        except ElementNotInteractableException as e:
+        except ElementNotInteractableException:
             pass
-    driver.close()
+    print("Server Started")
 
 
 def get_status():
-    # Returns the status of the server as a string
-    driver.get(SERVER_STATUS_URI)
-    time.sleep(5)
-    element = driver.find_element_by_css_selector('body > div > div.row.no-bottom-padding > div > div > div.status > span')
-    print(element.text)
+    """ Returns the status of the server as a string."""
+    element = driver.find_element_by_xpath('//*[@id="nope"]/main/section/'
+                                           'div[3]/div[3]/div[1]/div/span[2]'
+                                           '/span')
     return element.text
 
 
 def get_number_of_players():
-    # Returns the number of players as a string
-    driver.get(SERVER_STATUS_URI)
-    number_of_players = WebDriverWait(driver, 360).until(ec.presence_of_element_located((By.XPATH, '/html/body/div/div[4]/div/div/div/span[1]')))
-    return number_of_players.text
+    """ Returns the number of players as a string."""
+    element = driver.find_element_by_xpath('//*[@id="players"]')
+    return element.text
+
+
+def get_server_info():
+    """ Returns a string of information about the server
+        Returns: server_ip, server_status, number of players, software,
+        version"""
+    server_ip = driver.find_element_by_xpath('//*[@id="nope"]/main/section/'
+                                             'div[3]/div[1]').text[:-8]
+    software = driver.find_element_by_xpath('//*[@id="software"]').text
+    version = driver.find_element_by_xpath('//*[@id="version"]').text
+
+    return server_ip, get_status(), get_number_of_players(), software, version
 
 
 def connect_account():
@@ -88,24 +99,29 @@ def connect_account():
         have to do it every time we want to start or stop the server."""
 
     driver.get(URL)
-    print("going to login page")
+    # login to aternos
     element = driver.find_element_by_xpath('//*[@id="user"]')
     element.send_keys(USER)
     element = driver.find_element_by_xpath('//*[@id="password"]')
     element.send_keys(PASSWORD)
     element = driver.find_element_by_xpath('//*[@id="login"]')
     element.click()
-    print("clicking login")
-    connected = True
-    time.sleep(10)
+    time.sleep(2)
+
+    # selects server from server list
+    element = driver.find_element_by_css_selector('body > div > main > section'
+                                                  '> div > div.servers.single '
+                                                  '> div > div.server-body')
+    element.click()
 
 
 async def stop_server():
-    if not connected:
-        connect_account()
-    driver.get(URL)
-    element = driver.find_element_by_xpath("/html/body/div/main/section/div/div[2]/div[1]/div[1]")
+    """ Stops server from aternos panel."""
+    element = driver.find_element_by_xpath("//*[@id=\"stop\"]")
     element.click()
-    await asyncio.sleep(3)
-    element = driver.find_element_by_xpath('//*[@id="stop"]')
-    element.click()
+    print("Server Stopped")
+
+
+def quitBrowser():
+    """ Quits the browser driver cleanly."""
+    driver.quit()

@@ -12,8 +12,9 @@ import asyncio
 from discord.ext import commands
 import random
 from random import choice
-from connect_and_launch import start_server, get_status, stop_server
-
+from connect_and_launch import get_status, get_number_of_players
+from connect_and_launch import connect_account, quitBrowser, get_server_info
+from connect_and_launch import start_server, stop_server
 
 class Bot(commands.Bot):
     phrases = [
@@ -23,7 +24,7 @@ class Bot(commands.Bot):
         '`STATUS: GOOD`'
     ]
 
-    activity = 'comms monitor'
+    activity = 'comms monitor ./help'
     logoff_msg = 'logging off'
 
     def __init__(self):
@@ -52,7 +53,9 @@ class Bot(commands.Bot):
             print('Token file not found')
 
     async def on_ready(self):
-        print('Logged on')
+        connect_account()  # logs into aternos
+        await asyncio.sleep(2)
+        print('Logged on with aternos')
 
 
     @commands.command(pass_context=True)
@@ -65,6 +68,7 @@ class Bot(commands.Bot):
             '\n --- availible commands ---' + \
             '\n./help                shows this message' + \
             '\n./quit                shuts down the bot (only works for starmaid)' + \
+            '\n./info                gives server information'
             '\n./launch              starts the aternos minecraft server' + \
             '\n./status              shows status of aternos minecraft server' + \
             '\n./players             shows current players in aternos minecraft server' + \
@@ -91,12 +95,33 @@ class Bot(commands.Bot):
         status = get_status()
 
         if status == "Offline":
-            await start_server
+            await start_server()
+            author = message.author
+            # loops until server has started and pings person who launched
+            while True:
+                await asyncio.sleep(5)
+                if get_status() == "Online":
+                    await message.channel.send(f"{author.mention}, the "
+                                               f"server has started!")
+                    break
+        
         elif status == "Online":
             await ctx.message.channel.send("The server is already Online")
-        else :
-            await ctx.message.channel.send("An error occured. Either the status server is not responding, or you didn't set the server name correctly.\nTrying to launch server anyway.")
-            await start_server
+        
+        elif status == 'Starting ...' or status == 'Loading ...':
+            text = "The server is already starting..."
+            await message.channel.send(text)
+
+        elif status == 'Stopping ...' or status == 'Saving ...':
+            text = "The server is stopping. Please wait."
+            await message.channel.send(text)
+        
+        else:
+            text = "An error occurred. Either the status server is not " \
+                    "responding or you didn't set the server name " \
+                    "correctly.\n\nTrying to launch the server anyways."
+            await message.channel.send(text)
+            await start_server()
 
 
     @commands.command(pass_context=True)
@@ -111,19 +136,32 @@ class Bot(commands.Bot):
     async def players(ctx):
         # launches aternos
         await ctx.message.channel.send("Getting players...")
-        try:
-            players = get_number_of_players()
-        except:
-            await ctx.message.channel.send("There are no players on the server")
-        else:
-            await ctx.message.channel.send("There are {} players on the server".format(players))
+        text = f"There are {get_number_of_players()} players online."
+        await message.channel.send(text)
 
+    
+    @commands.command(pass_context=True)
+    async def info(ctx):
+        ip, status, players, software, version = get_server_info()
+        text = f"**IP:** {ip} \n**Status:** {status} \n**Players: " \
+                f"**{players} \n**Version:** {software} {version}"
+        embed = discord.Embed()
+        embed.add_field(name="Server Info", value=text, inline=False)
+        await message.channel.send(embed=embed)
 
+    
     @commands.command(pass_context=True)
     async def stop(ctx):
         # launches aternos
-        await ctx.message.channel.send("Stopping the server.")
-        await stop_server
+        await message.channel.send("Stopping the server.")
+        status = get_status()
+
+        if status != 'Stopping ...' or status != 'Saving ...':
+            await stop_server()
+
+        else:
+            await message.channel.send("The server is already Offline.")
+
 
 
 if __name__ == '__main__':
