@@ -12,8 +12,6 @@ from selenium.webdriver.common.by import By
 import asyncio
 import time
 import json
-#from chromedriver_py import binary_path
-
 
 # load the credentials and links from a json file
 creds_path = 'server_credentials.json'
@@ -28,17 +26,16 @@ URL = "https://aternos.org/go/"
 USER = creds["username"]
 PASSWORD = creds["password"]
 
-# depreciated
-# SERVER_STATUS_URI = "http://" + creds["statusURI"]
-
-
 connected = False
 
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
-#options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 OPR/68.0.3618.125")
 
+# uncomment these to test on windows
+#from chromedriver_py import binary_path
 #driver = webdriver.Chrome(options=options, executable_path=binary_path)
+
+# uncomment this to run on rpi
 driver = webdriver.Chrome(options=options)
 
 
