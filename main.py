@@ -25,7 +25,7 @@ class Bot(commands.Bot):
     ]
 
     activity = 'comms monitor ./help'
-    logoff_msg = 'logging off'
+    logoff_msg = '`logging off`'
 
     def __init__(self):
         # This is the stuff that gets run at startup

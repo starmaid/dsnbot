@@ -4,11 +4,12 @@
 # edited 12/15/2020
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import ElementNotInteractableException, ElementClickInterceptedException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.alert import Alert
 import asyncio
 import time
 import json
@@ -29,14 +30,14 @@ PASSWORD = creds["password"]
 connected = False
 
 options = webdriver.ChromeOptions()
-options.add_argument('headless')
 
 # uncomment these to test on windows
-#from chromedriver_py import binary_path
-#driver = webdriver.Chrome(options=options, executable_path=binary_path)
+from chromedriver_py import binary_path
+driver = webdriver.Chrome(options=options, executable_path=binary_path)
 
 # uncomment this to run on rpi
-driver = webdriver.Chrome(options=options)
+#options.add_argument('headless')
+#driver = webdriver.Chrome(options=options)
 
 
 async def start_server():
@@ -115,7 +116,29 @@ def connect_account():
 async def stop_server():
     """ Stops server from aternos panel."""
     element = driver.find_element_by_xpath("//*[@id=\"stop\"]")
-    element.click()
+    iterations = 0
+    
+    while iterations < 5:
+        try:
+            element.click()
+            break
+        except ElementNotInteractableException:
+            print("interactable exception")
+            time.sleep(2)
+            driver.execute_script('hideAlert()')
+            iterations += 1
+            continue
+        except ElementClickInterceptedException:
+            print("intercepted exception")
+            #alert = driver.find_element_by_class_name("fas fa-times-circle")
+            #alert.click()
+            #driver.execute_script('alert("alert via selenium")')
+            driver.execute_script('hideAlert()')
+            time.sleep(2)
+            iterations += 1
+            continue
+
+
     print("Server Stopped")
 
 
