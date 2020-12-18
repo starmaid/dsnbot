@@ -8,8 +8,13 @@ https://discordapp.com/oauth2/authorize?client_id=762139991534469150&permissions
 
 ## functionality
 
+Currently Implemented:
+- alerts for 20020 updates (done, but can be modified for 20021)
+- alerts for new articles by jon on SBNATION
+- alerts for new fanfics posted in the AO3 17776 tag
+- control over an aternos minecraft server
+
 planned capabilities are:
-- alerts for 20020 updates
 - Have a chance to send NFL/ESPN/Selected team tweets (maybe ill make it possible to add them)
 - have a chance to send a jon bois tweet or scoragami tweet (higher chance)
 

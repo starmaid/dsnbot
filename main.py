@@ -119,9 +119,7 @@ class Bot(commands.Bot):
             await ctx.send(text)
         
         else:
-            text = "`An error occurred. Either the status server is not " \
-                    "responding or you didn't set the server name " \
-                    "correctly.\n\nTrying to launch the server anyways.`"
+            text = "`An error occurred.\nTrying to launch the server anyways.`"
             await ctx.send(text)
             await start_server()
 

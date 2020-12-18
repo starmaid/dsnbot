@@ -32,12 +32,12 @@ connected = False
 options = webdriver.ChromeOptions()
 
 # uncomment these to test on windows
-from chromedriver_py import binary_path
-driver = webdriver.Chrome(options=options, executable_path=binary_path)
+#from chromedriver_py import binary_path
+#driver = webdriver.Chrome(options=options, executable_path=binary_path)
 
 # uncomment this to run on rpi
-#options.add_argument('headless')
-#driver = webdriver.Chrome(options=options)
+options.add_argument('headless')
+driver = webdriver.Chrome(options=options)
 
 
 async def start_server():
@@ -130,15 +130,11 @@ async def stop_server():
             continue
         except ElementClickInterceptedException:
             print("intercepted exception")
-            #alert = driver.find_element_by_class_name("fas fa-times-circle")
-            #alert.click()
-            #driver.execute_script('alert("alert via selenium")')
             driver.execute_script('hideAlert()')
             time.sleep(2)
             iterations += 1
             continue
-
-
+            
     print("Server Stopped")
 
 
