@@ -33,7 +33,8 @@ if last_update['jon'] != title:
 ao3_update = False
 ao3 = feedparser.parse('https://archiveofourown.org/tags/17107986/feed.atom')
 sortedlist = sorted(ao3['entries'], key=lambda k: k['updated'], reverse=True)
-updated = sortedlist[0]['updated']
+#updated = sortedlist[0]['updated']
+updated = sortedlist[0]['title']
 link = sortedlist[0]['link']
 if last_update['ao3'] != updated:
     ao3_update = True
