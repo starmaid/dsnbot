@@ -54,7 +54,7 @@ class DSNQuery:
             
             sDict['name'] = name
             sDict['friendlyName'] = self.friendlyTranslator[name.lower()]
-            sDict['range'] = float(target.attrib['uplegRange']) # in miles
+            sDict['range'] = float(target.attrib['uplegRange']) # in km
             signals[name] = sDict
 
 
