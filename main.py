@@ -15,6 +15,7 @@ from random import choice
 from connect_and_launch import get_status, get_number_of_players
 from connect_and_launch import connect_account, quitBrowser, get_server_info
 from connect_and_launch import start_server, stop_server
+from dsnquery import DSNQuery
 
 class Bot(commands.Bot):
     phrases = [
@@ -32,6 +33,7 @@ class Bot(commands.Bot):
         super().__init__(command_prefix='./',self_bot=False,activity=discord.Game(self.activity))
         self.remove_command('help')
         self.add_command(self.help)
+        self.add_command(self.dsn)
         self.add_command(self.quit)
         self.add_command(self.launch)
         self.add_command(self.players)
@@ -45,6 +47,7 @@ class Bot(commands.Bot):
         else:
             pass
 
+
     def read_token(self):
         self.token = None
         try:
@@ -52,6 +55,7 @@ class Bot(commands.Bot):
                 self.token = fp.readlines()[0].strip('\n')
         except:
             print('Token file not found')
+
 
     async def on_ready(self):
         connect_account()  # logs into aternos
@@ -68,6 +72,7 @@ class Bot(commands.Bot):
             '\nusage:          ./command [params]*' + \
             '\n --- availible commands ---' + \
             '\n./help                shows this message' + \
+            '\n./dsn                 queries the Deep Space Network' + \
             '\n./quit                shuts down the bot (only works for starmaid)' + \
             '\n./info                gives server information' + \
             '\n./launch              starts the aternos minecraft server' + \
@@ -78,6 +83,13 @@ class Bot(commands.Bot):
         await ctx.send(help_msg)
         return
 
+
+    @commands.command(pass_context=True)
+    async def dsn(ctx):
+        # dsn current communication poll
+        msg = DSNQuery().poll()
+        await ctx.send(msg)
+    
 
     @commands.command(pass_context=True)
     async def quit(ctx):
