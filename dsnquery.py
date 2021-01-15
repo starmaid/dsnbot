@@ -13,6 +13,7 @@ class DSNQuery:
         # make dict of friendlynames
         allships = friendlynames.findall("./spacecraftMap/spacecraft")
         self.friendlyTranslator = {'dss': 'Debug'}
+        self.friendlyTranslator = {'test': 'Testing'}
 
         for ship in allships:
             self.friendlyTranslator[ship.attrib['name']] = ship.attrib['friendlyName']
