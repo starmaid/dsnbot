@@ -62,9 +62,9 @@ class DSNQuery:
             signals[name] = sDict
 
         # remove things we dont care about
-        signals.pop("Debug")
-        signals.pop("Testing")
-        
+        signals.pop("dss")
+        signals.pop("test")
+
 
         ts = int(comms.findall("timestamp")[0].text) / 1000
         timestring = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
