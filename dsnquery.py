@@ -53,10 +53,18 @@ class DSNQuery:
                 continue
             
             sDict['name'] = name
-            sDict['friendlyName'] = self.friendlyTranslator[name.lower()]
+            try:
+                sDict['friendlyName'] = self.friendlyTranslator[name.lower()]
+            except:
+                sDict['friendlyName'] = name
+            
             sDict['range'] = float(target.attrib['uplegRange']) # in km
             signals[name] = sDict
 
+        # remove things we dont care about
+        signals.pop("Debug")
+        signals.pop("Testing")
+        
 
         ts = int(comms.findall("timestamp")[0].text) / 1000
         timestring = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
