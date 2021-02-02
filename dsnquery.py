@@ -48,7 +48,7 @@ class DSNQuery:
 
         for target in comms.findall("./dish/target"):
             sDict = {}
-            name = target.attrib['name']
+            name = target.attrib['name'].lower()
             if name == "":
                 continue
             
@@ -62,8 +62,11 @@ class DSNQuery:
             signals[name] = sDict
 
         # remove things we dont care about
-        signals.pop("dss")
-        signals.pop("test")
+        for i in ["dss", "test", "testing"]:
+            try:
+                signals.pop(i)
+            except:
+                pass
 
 
         ts = int(comms.findall("timestamp")[0].text) / 1000
