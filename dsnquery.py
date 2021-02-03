@@ -12,7 +12,8 @@ class DSNQuery:
         friendlynames = ET.fromstring(friendlyxml.text)
         # make dict of friendlynames
         allships = friendlynames.findall("./spacecraftMap/spacecraft")
-        self.friendlyTranslator = {'dss': 'Debug', 'test': 'Testing'}
+        self.friendlyTranslator = {}
+        #self.friendlyTranslator = {'dss': 'Debug', 'test': 'Testing'}
 
         for ship in allships:
             self.friendlyTranslator[ship.attrib['name']] = ship.attrib['friendlyName']
@@ -54,20 +55,24 @@ class DSNQuery:
             
             sDict['name'] = name
             try:
-                sDict['friendlyName'] = self.friendlyTranslator[name.lower()]
+                sDict['friendlyName'] = self.friendlyTranslator[name]
             except:
-                sDict['friendlyName'] = name
+                print("key " + name + " not found")
+                continue
             
             sDict['range'] = float(target.attrib['uplegRange']) # in km
             signals[name] = sDict
 
+        """
+        print(signals)
         # remove things we dont care about
         for i in ["dss", "test", "testing"]:
             try:
                 signals.pop(i)
             except:
                 pass
-
+        print(signals)
+        """
 
         ts = int(comms.findall("timestamp")[0].text) / 1000
         timestring = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
@@ -76,7 +81,7 @@ class DSNQuery:
         outString = "```python\n<./> " + timestring + " UTC <./>\n"
 
         for item in signals:
-            outString += signals[item]['friendlyName']
+            outString += signals[item]['friendlyName'].ljust(12)
             #if  signals[item]['power'] != "":
             #    outString += " (" + signals[item]['power'] + " dB)"
             
