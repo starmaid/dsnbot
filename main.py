@@ -1,30 +1,29 @@
-# destiny assistant bot for my destiny server
+# deep space network assistant bot for 17776 server
 # author Nicky (@starmaid#6925)
 # created 05/06/2020
 # edited 05/07/2020
 # edited 11/27/2020: added aternos functions
-# version 1.1
+# edited 2/20/2021: reformatted server permissions, added rss feeding
+# version 2.0
 
 import discord
+from discord.ext import commands
+import asyncio
+
 from datetime import datetime, timezone, timedelta
 from dateutil import parser
-import asyncio
-from discord.ext import commands
 import random
 from random import choice
+import json
+import feedparser
+
 from connect_and_launch import get_status, get_number_of_players
 from connect_and_launch import connect_account, quitBrowser, get_server_info
 from connect_and_launch import start_server, stop_server
+
 from dsnquery import DSNQuery
 
 class Bot(commands.Bot):
-    phrases = [
-        'dsn'
-    ]
-    replies = [
-        '`STATUS: GOOD`'
-    ]
-
     activity = 'comms monitor ./help'
     logoff_msg = '`logging off`'
 
@@ -40,12 +39,15 @@ class Bot(commands.Bot):
         self.add_command(self.status)
         self.add_command(self.stop)
         self.add_command(self.info)
+        
         self.read_token()
+        self.load_config()
 
-        if self.token is not None:
-            super().run(self.token)
-        else:
+        if self.token is None or self.server conf is None or self.rss_conf is None:
+            print(str(datetime.now()) + ': Could not start server due to missing files")
             pass
+        else:
+            super().run(self.token)
 
 
     def read_token(self):
@@ -54,41 +56,254 @@ class Bot(commands.Bot):
             with open('./token.txt','r') as fp:
                 self.token = fp.readlines()[0].strip('\n')
         except:
-            print('Token file not found')
+            print(str(datetime.now()) + ': Token file not found')
+
+
+    def load_config(self):
+        self.server_conf = None
+        try:
+            with open('./server_conf.json', 'r') as fp:
+                self.server_conf = json.load(fp)
+        except:
+            print(str(datetime.now()) + ': Server conf file not found')
+
+        try:
+            with open('./rss_conf.json', 'r') as fp:
+                self.rss_conf = json.load(fp)
+        except:
+            print(str(datetime.now()) + ': RSS conf file not found')
 
 
     async def on_ready(self):
         connect_account()  # logs into aternos
         await asyncio.sleep(2)
-        print('Logged on with aternos')
+        print(str(datetime.now()) + ': Logged on with aternos')
 
 
     @commands.command(pass_context=True)
     async def help(ctx):
         #this is the help command.
-        help_msg = '```<./> DSN BOT <./>\n' + \
-            'a discord bot to communicate with space probes ' + \
-            'at lightpseed' + \
-            '\nusage:          ./command [params]*' + \
-            '\n --- availible commands ---' + \
-            '\n./help                shows this message' + \
-            '\n./dsn                 queries the Deep Space Network' + \
-            '\n./quit                shuts down the bot (only works for starmaid)' + \
-            '\n./info                gives server information' + \
-            '\n./launch              starts the aternos minecraft server' + \
-            '\n./status              shows status of aternos minecraft server' + \
-            '\n./players             shows current players in aternos minecraft server' + \
-            '\n./stop                stops aternos minecraft server' + \
-            '```'
+        cmd = ctx.message.content.lower().split()
+        l = len(cmd)
+
+        if l = 1:
+            # no params, just plain help
+            help_msg = '```<./> DSN BOT <./>\n' + \
+                'a discord bot to communicate with space probes ' + \
+                'at lightpseed' + \
+                '\nusage:          ./command [params]*' + \
+                '\n --- availible commands ---' + \
+                '\n./help                shows this message' + \
+                '\n./dsn                 queries the Deep Space Network' + \
+                '\n./ls [all, active]    lists all feeds, or active feeds in this server' + \
+                '\n./add [params]*       adds a feed. See ./help add' + \
+                '\n./rm [name]           removes a feed from the server. use ./ls to find names' + \
+                '\n./about               shows an about message for the bot' + \
+                '\n./quit                shuts down the bot (only works for starmaid)'
+
+            #if ():
+            help_msg += \
+                '\n./info                gives mc server information' + \
+                '\n./launch              starts the aternos minecraft server' + \
+                '\n./status              shows status of aternos minecraft server' + \
+                '\n./players             shows current players in aternos minecraft server' + \
+                '\n./stop                stops aternos minecraft server'
+
+        elif l == 2:
+            # we had a second param
+            if cmd[1] == 'add':
+                help_msg = '```<./> DSN BOT <./>' + \
+                    '\nAdd a notification feed to a channel. Omit hard brackets when invoking.' + \
+                    '\nIf you already know the name of the feed, via "./ls all", you can add ' + \
+                    'it directly by name.'
+                    '\n./add [#channel] [name]' + \
+                    '\nIf you want to create a new custom feed using default settings, add ' + \
+                    'it directly with the link. STILL BEING DEVELOPED - IT MIGHT NOT WORK'
+                    '\n./add [#channel] rss [link to rss feed]'
+        else:
+            help_msg = '```help parameters not recognized.'
+
+
+        help_msg += '```'
         await ctx.send(help_msg)
         return
+
+    @commands.command(pass_context=True)
+    async def about(ctx):
+        """send an about message"""
+        msg = '```<./> DSN BOT <./>' + \
+            '\nInspired by the Deep Space Network, run by JPL in Pasadena, CA.' + \
+            '\nMade by @starmaid#6925. Contact me with questions.' + \
+            '\nGithub: https://github.com/starmaid/dsnbot' + \
+            '\nCurrently in ' + len(self.server_conf.keys()) + ' servers' + \
+            '\nWatching ' + len(self.rss_conf['rss'].keys()) + ' rss feeds and ' + \
+            len(self.rss_conf['custom'].keys()) + ' custom feeds' + \
+            '```'
+
+        await ctx.send(msg)
+
+    # async def on_guild_join(guild):
+        # would love to say hi hehe
+
+
+    ### ========== UPDATE COMMANDS ========== ###
+
+    @commands.command(pass_context=True)
+    async def add(ctx):
+        """add an update to a channel"""
+        
+        # read the message
+        cmd = ctx.message.content.lower().split()
+        l = len(cmd)
+        guild_name = ctx.guild.name
+        guild_id = ctx.guild.id
+        chan_name = ctx.guild.name
+        chan_id = ctx.channel.id
+
+        err = False
+        newrss = False
+
+        # check arguments
+        if l < 2:
+            msg = '`too few arguments provided. See ./help add`'
+            err = True;
+            # parse arguments
+            # send error message
+        elif l == 3:
+            # its just adding an already created one
+            new_name = cmd[2]
+
+            if new_name not in self.rss_conf['rss'].keys() and new_name not in self.rss_conf['custom'].keys()
+                msg = '`premade feed not found`'
+                err = True
+            else:
+                
+                if guild_id in self.server_conf.keys():
+                    if chan_id in self.server_conf[guild_id].keys():
+                        self.server_conf[guild_id][chan_id].append(new_name)
+                    else: 
+                        self.server_conf[guild_id][chan_id] = [new_name]
+                else:
+                    self.server_conf[guild_id] = {'permissions': ['rss'], chan_id: [new_name]}
+
+        elif l == 4:
+            if cmd[2] != "rss":
+                msg = '`improperly formed command. see ./help add`'
+                err = True
+            else:
+                try:
+                    feed = feedparser.parse(cmd[3])
+                    title = feed['feed']['title'].replace(' ','').lower()
+                    shortname = ''.join([c for c in title if c.isalnum()])
+                    new_name = shortname[0:20]
+                    self.rss_conf['rss'][new_name] = [cmd[3], "title", "", ""]
+                    newrss = True
+
+                    if guild_id in self.server_conf.keys():
+                        if chan_id in self.server_conf[guild_id].keys():
+                            self.server_conf[guild_id][chan_id].append(new_name)
+                        else: 
+                            self.server_conf[guild_id][chan_id] = [new_name]
+                    else:
+                        self.server_conf[guild_id] = {'permissions': ['rss'], chan_id: [new_name]}
+                except:
+                    msg = '`feed failed to be imported. make sure the link is correct, or contact an administrator`'
+                    err = True
+
+        if not err:
+            # open and write to files to save changes
+            with open('./server_conf.json', 'w') as fp:
+                json.dump(self.server_conf, fp)
+            
+            if newrss:
+                with open('./rss_conf.json', 'w') as fp:
+                    json.dump(self.rss_conf, fp)
+            
+            # the most recent update will be sent to the server at [time]
+            msg = '`update feed for ' + guild_name + ' ' + chan_name + ' ' + new_name + ' added successfully`'
+        
+
+        # send confirmation message
+        print(str(datetime.now()) + ': ' + msg)
+        await ctx.send(msg)
+        return
+
+    @commands.command(pass_context=True)
+    async def ls(ctx):
+        """list updates"""
+
+        # read the message
+        cmd = ctx.message.content.lower().split()
+        l = len(cmd)
+        guild_name = ctx.guild.name
+        guild_id = ctx.guild.id
+        chan_name = ctx.guild.name
+        chan_id = ctx.channel.id
+
+        err = False
+
+        if len > 2:
+            err = True
+            msg = '`Too many arguments for ls. see ./help`'
+        else:
+            if len == 1 or cmd[1] == 'active':
+                # list active feeds for this server
+            elif cmd[1] == 'all':
+                # list all feeds known by the rss thing
+            else:
+                err = True
+                msg = '`invalid args. see ./help`'
+        
+        # check arguments
+            # parse arguments
+            # send error message
+        
+
+
+        # if its 
+        # open updates file
+            # read shortnames and last values
+        
+        # send to channel
+
+        await ctx.send(msg)
+
+    @commands.command(pass_context=True)
+    async def rm(ctx):
+        """remove an enabled update"""
+        
+        # read the message
+        # check arguments
+            # parse arguments
+            # send error message
+
+        # get guild
+
+        # check data for that update
+            # if not there, error out
+            # if there, edit file to remove it
+
+        # open and save file
+
+        # send confirmation message
+
+        await ctx.send(msg)
+
 
 
     @commands.command(pass_context=True)
     async def dsn(ctx):
-        # dsn current communication poll
+        """dsn current communication poll"""
         msg = DSNQuery().poll()
         await ctx.send(msg)
+
+
+
+    async def on_command_error(self, ctx, error):
+        """Handle commands that are not recognized so it stops printing to console"""
+        if type(error) is commands.CommandNotFound:
+            msg = "`command not recognized.`"
+            await ctx.send(msg)
     
 
     @commands.command(pass_context=True)
@@ -100,7 +315,11 @@ class Bot(commands.Bot):
             quitBrowser()
         else:
             await ctx.send('`you do not have permission to shut me down.`')
+        
+        print(str(datetime.now()) + ': Shutting down')
         return
+
+    ### ========== MINECRAFT COMMANDS ========== ###
 
     @commands.command(pass_context=True)
     async def launch(ctx):
