@@ -20,9 +20,9 @@ from random import choice
 import json
 import feedparser
 
-#from connect_and_launch import get_status, get_number_of_players
-#from connect_and_launch import connect_account, quitBrowser, get_server_info
-#from connect_and_launch import start_server, stop_server
+from connect_and_launch import get_status, get_number_of_players
+from connect_and_launch import connect_account, quitBrowser, get_server_info
+from connect_and_launch import start_server, stop_server
 
 from dsnquery import DSNQuery
 
@@ -87,7 +87,7 @@ class Bot(commands.Bot):
 
 
     async def on_ready(self):
-        #connect_account()  # logs into aternos
+        connect_account()  # logs into aternos
         await asyncio.sleep(2)
         print(str(datetime.now()) + ': Logged on with aternos')
 
@@ -114,7 +114,7 @@ class Bot(commands.Bot):
                 '\n./quit                shuts down the bot (only works for starmaid)'
 
 
-            if ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']:
+            if str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']:
                 help_msg += \
                     '\n./info                gives mc server information' + \
                     '\n./launch              starts the aternos minecraft server' + \

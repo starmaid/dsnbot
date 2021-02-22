@@ -1,1 +1,11 @@
-{"642587435540414484": {"permissions": ["rss"], "642587435540414487": ["sbnationcomallpostsb"]}}
+{
+    "642587435540414484": {
+        "permissions": [
+            "rss",
+            "minecraft"
+        ],
+        "642587435540414487": [
+            "sbnationcomallpostsb"
+        ]
+    }
+}
