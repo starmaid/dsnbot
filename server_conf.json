@@ -1,11 +1,13 @@
 {
     "642587435540414484": {
         "permissions": [
-            "rss",
-            "minecraft"
+            "rss"
         ],
-        "642587435540414487": [
-            "sbnationcomallpostsb"
+        "762137919535185960": [
+            "sbnation_jonbois"
+        ],
+        "708151931909963847": [
+            "bungienetcontentfeed"
         ]
     }
 }

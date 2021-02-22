@@ -6,8 +6,21 @@
             "last_url": "https://www.sbnation.com/secret-base/22286086/three-ball-walk-two-pitch-strikeout-dorktown",
             "last_val": "Dorktown: The three-ball walk, and other counting failures",
             "last_time": "2021-02-16T15:15:00-05:00",
-            "msg_template": "@satellites `new Jon Bois article:` "
+            "msg_template": "@Satellites `new Jon Bois article:` "
+        },
+        "ao3_17776_tag": {
+            "url": "https://archiveofourown.org/tags/17107986/feed.atom",
+            "field": "title",
+            "last_url": "https://archiveofourown.org/works/29023008",
+            "last_val": "Marathon",
+            "last_time": "2021-02-21T22:51:35-05:00",
+            "msg_template": "`New work posted in the AO3 tag:` "
         }
     },
-    "custom": {}
+    "custom": {
+        "custom_template": {
+            "msg": "`New thing: `",
+            "desc": "short thing about it (max like 45 chars)"
+        }
+    }
 }

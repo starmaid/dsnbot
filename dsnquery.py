@@ -63,16 +63,16 @@ class DSNQuery:
             sDict['range'] = float(target.attrib['uplegRange']) # in km
             signals[name] = sDict
 
-        """
-        print(signals)
+        
+        #print(signals)
         # remove things we dont care about
         for i in ["dss", "test", "testing"]:
             try:
                 signals.pop(i)
             except:
                 pass
-        print(signals)
-        """
+        #print(signals)
+        
 
         ts = int(comms.findall("timestamp")[0].text) / 1000
         timestring = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')

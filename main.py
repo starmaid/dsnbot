@@ -213,7 +213,7 @@ class Bot(commands.Bot):
                     else: 
                         server_conf[str(guild_id)][new_chan] = [new_name]
                 else:
-                    server_conf[str(guild_id)] = {'permissions': ['rss'], chan_id: [new_name]}
+                    server_conf[str(guild_id)] = {'permissions': ['rss'], new_chan: [new_name]}
 
         elif l == 4:
             new_chan = cmd[1].replace('<','').replace('>','').replace('#','')
@@ -221,7 +221,7 @@ class Bot(commands.Bot):
             for ch in ctx.guild.channels:
                 all_ids.append(str(ch.id))
 
-            if str(new_chan) not in all_ids:
+            if new_chan not in all_ids:
                 err = True
                 msg = '`Channel not valid. Make sure that the #channel link is blue.`'
             elif cmd[2] != "rss":
@@ -242,12 +242,12 @@ class Bot(commands.Bot):
                                                       'msg_template': '`Update for ' + new_name + ':` '}
                     newrss = True
                     if str(guild_id) in server_conf.keys():
-                        if chan_id in server_conf[guild_id].keys():
-                            server_conf[str(guild_id)][chan_id].append(new_name)
+                        if new_chan in server_conf[str(guild_id)].keys():
+                            server_conf[str(guild_id)][new_chan].append(new_name)
                         else: 
-                            server_conf[str(guild_id)][chan_id] = [new_name]
+                            server_conf[str(guild_id)][new_chan] = [new_name]
                     else:
-                        server_conf[str(guild_id)] = {'permissions': ['rss'], chan_id: [new_name]}
+                        server_conf[str(guild_id)] = {'permissions': ['rss'], new_chan: [new_name]}
                 except:
                     msg = '`feed failed to be imported. make sure the link is correct, or contact an administrator`'
                     err = True
@@ -257,9 +257,11 @@ class Bot(commands.Bot):
             with open('./server_conf.json', 'w') as fp:
                 json.dump(server_conf, fp)
             
+
             if newrss:
                 with open('./rss_conf.json', 'w') as fp:
                     json.dump(rss_conf, fp)
+
             
             # the most recent update will be sent to the server at [time]
             msg = '`update feed for "' + guild_name + '"` <#' + new_chan + '> `"' + new_name + '" added successfully`'
@@ -316,7 +318,7 @@ class Bot(commands.Bot):
 
                 msg += '\nCUSTOM'
                 for feed in rss_conf['custom'].keys():
-                    msg += '\n    ' + feed + ' ' + rss_conf['custom'][feed]['desc']
+                    msg += '\n    ' + feed + ' "' + rss_conf['custom'][feed]['desc'] + '"'
 
                 msg += '```'
 
