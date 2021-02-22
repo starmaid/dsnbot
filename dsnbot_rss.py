@@ -30,10 +30,13 @@ for f in rss_conf['rss'].keys():
     if fq.rss(rss_conf['rss'][f]):
         # updates the main JSON object when passing by reference!
         updated_rss.append(f)
+        print(updated_rss)
+        update = True
 
 for c in rss_conf['custom'].keys():
     if fq.custom(c, rss_conf['custom'][c]):
         updated_custom.append(c)
+        update = True
 
 
 # send the messages maybe

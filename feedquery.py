@@ -106,17 +106,19 @@ class FeedQuery:
         @client.event
         async def on_ready():
             for g in client.guilds:
-                for c in g.channels:
-                    for feed in server_conf[g.id][c.id]:
-                        if feed in updated_rss:
-                            # then the data changed
-                            msg = rss_conf['rss'][feed]['msg_template']
-                            msg += rss_conf['rss'][feed]['last_url']
-                            await c.send(msg)
+                if str(g.id) in server_conf.keys():
+                    for c in g.channels:
+                        if str(c.id) in server_conf[str(g.id)].keys():
+                            for feed in server_conf[str(g.id)][str(c.id)]:
+                                if feed in updated_rss:
+                                    # then the data changed
+                                    msg = rss_conf['rss'][feed]['msg_template']
+                                    msg += rss_conf['rss'][feed]['last_url']
+                                    await c.send(msg)
 
-                        if feed in updated_custom:
-                            # then the custom data changed
-                            await c.send(rss_conf['custom'][feed]['msg'])
+                                if feed in updated_custom:
+                                    # then the custom data changed
+                                    await c.send(rss_conf['custom'][feed]['msg'])
 
             await client.close()
 

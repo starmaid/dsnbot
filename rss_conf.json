@@ -1,1 +1,13 @@
-{"rss": {"sbnationcomallpostsb": {"url": "https://www.sbnation.com/authors/jon-bois/rss", "field": "title", "last_url": "", "last_val": "", "last_time": "", "msg_template": "`Update for sbnationcomallpostsb:` "}}, "custom": {}}
+{
+    "rss": {
+        "sbnation_jonbois": {
+            "url": "https://www.sbnation.com/authors/jon-bois/rss",
+            "field": "title",
+            "last_url": "https://www.sbnation.com/secret-base/22286086/three-ball-walk-two-pitch-strikeout-dorktown",
+            "last_val": "Dorktown: The three-ball walk, and other counting failures",
+            "last_time": "2021-02-16T15:15:00-05:00",
+            "msg_template": "@satellites `new Jon Bois article:` "
+        }
+    },
+    "custom": {}
+}
