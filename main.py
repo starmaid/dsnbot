@@ -436,6 +436,7 @@ class Bot(commands.Bot):
 
         if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
+            await ctx.send(msg)
             return
 
         await ctx.send("`Launching Server...`")
@@ -474,6 +475,7 @@ class Bot(commands.Bot):
         """status of aternos"""
         if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
+            await ctx.send(msg)
             return
 
         await ctx.send("`Getting status...`")
@@ -486,6 +488,7 @@ class Bot(commands.Bot):
         # launches aternos
         if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
+            await ctx.send(msg)
             return
 
         await ctx.send("`Getting players...`")
@@ -497,6 +500,7 @@ class Bot(commands.Bot):
     async def info(ctx):
         if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
+            await ctx.send(msg)
             return
 
         ip, status, players, software, version = get_server_info()
@@ -512,6 +516,7 @@ class Bot(commands.Bot):
         # stops aternos
         if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
+            await ctx.send(msg)
             return
         
         await ctx.send("`Stopping the server.`")
