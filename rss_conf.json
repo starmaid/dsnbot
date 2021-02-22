@@ -15,11 +15,19 @@
             "last_val": "Marathon",
             "last_time": "2021-02-21T22:51:35-05:00",
             "msg_template": "`New work posted in the AO3 tag:` "
+        },
+        "perseverancemarsrove": {
+            "url": "https://blogs.nasa.gov/mars2020/feed/?b",
+            "field": "title",
+            "last_url": "https://blogs.nasa.gov/mars2020/2021/02/18/blog-first-image-from-perseverance-on-mars/",
+            "last_val": "Blog: First Image From Perseverance on Mars",
+            "last_time": "Thu, 18 Feb 2021 21:32:47 +0000",
+            "msg_template": "`Update for NASA Percy Blog:` "
         }
     },
     "custom": {
         "custom_template": {
-            "msg": "`New thing: `",
+            "msg": "`wahtever`",
             "desc": "short thing about it (max like 45 chars)"
         }
     }

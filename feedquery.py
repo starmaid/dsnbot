@@ -1,6 +1,7 @@
 import feedparser
 import requests
 import discord
+from dateutil import parser
 
 class FeedQuery:
     def __init__(self):
@@ -18,8 +19,8 @@ class FeedQuery:
         # get the file from Online
         rssfile = feedparser.parse(feed_dict['url'])
         
-        # sort by most recent update
-        sortedlist = sorted(rssfile['entries'], key=lambda k: k['updated'], reverse=True)
+        # sort by the updated time parsed
+        sortedlist = sorted(rssfile['entries'], key=lambda k: parser.parse(k['updated'], fuzzy=True), reverse=True)
         entry = sortedlist[0]
 
         # Check the field and read the value
