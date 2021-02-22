@@ -434,7 +434,7 @@ class Bot(commands.Bot):
     async def launch(ctx):
         # launches aternos
 
-        if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
+        if not (str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
             await ctx.send(msg)
             return
@@ -473,7 +473,7 @@ class Bot(commands.Bot):
     @commands.command(pass_context=True)
     async def status(ctx):
         """status of aternos"""
-        if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
+        if not (str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
             await ctx.send(msg)
             return
@@ -486,7 +486,7 @@ class Bot(commands.Bot):
     @commands.command(pass_context=True)
     async def players(ctx):
         # launches aternos
-        if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
+        if not (str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
             await ctx.send(msg)
             return
@@ -498,7 +498,7 @@ class Bot(commands.Bot):
     
     @commands.command(pass_context=True)
     async def info(ctx):
-        if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
+        if not (str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
             await ctx.send(msg)
             return
@@ -514,7 +514,7 @@ class Bot(commands.Bot):
     @commands.command(pass_context=True)
     async def stop(ctx):
         # stops aternos
-        if not (ctx.guild.id in server_conf.keys() and 'minecraft' in server_conf[ctx.guild.id]['permissions']):
+        if not (str(ctx.guild.id) in server_conf.keys() and 'minecraft' in server_conf[str(ctx.guild.id)]['permissions']):
             msg = '`sorry, your server does not have minecraft permissions`'
             await ctx.send(msg)
             return
