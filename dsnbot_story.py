@@ -4,72 +4,36 @@
 # WARNING this LOOPS UNTIL UPDATE so like
 # author Nicky (@starmaid#6925)
 # created 10/3/2020
-# edited NA
-# version 1.0
+# edited 2/21/2021 modular and portable now
+# version 2.0
 
-import requests
 import time
-import discord
 import json
+from feedquery import FeedQuery
 
 
-# look at previous updates
-updates_path = './feed_updates.json'
+# load the file that contains all feeds
+rss_path = './rss_conf.json'
 try:
-    with open(updates_path, 'r') as fp:
-        last_update = json.load(fp)
+    with open(rss_path, 'r') as fp:
+        rss_conf = json.load(fp)
 except:
-    last_update = {"story": "1", "jon": "None"}
+    print(str(datetime.now()) + ': RSS file not found')
 
 
-baselink = 'https://www.sbnation.com/secret-base/21410129/20020/chapter-'
+rss_conf['custom']['update_20020']['active'] = True
+fq = FeedQuery()
 
-story_update = False
-next = int(last_update['story']) + 1
-while not story_update:
-    # try to get the chapter
-    link = baselink+str(next)
-    webpage = requests.get(link)
-    
-    if webpage.status_code != 404:
-        # if we actually get a chapter back, increase the counter
-        last_update['story'] = str(next)
-        story_update = True
-    else:
-        time.sleep(10)
-
+update = fq.update_20020(rss_conf['custom']['update_20020'])
 
 # send the messages maybe
-if story_update:
-    with open(updates_path, 'w') as fp:
-        json.dump(last_update, fp)
+if update:
+    # save changes to JSON
+    with open(rss_path, 'w') as fp:
+        json.dump(rss_conf, fp)
 
-    client = discord.Client(activity=discord.Game("searching"))
+    # open server config file
+    with open('./server_conf.json', 'r') as fp:
+        server_conf = json.load(fp)
 
-    @client.event
-    async def on_ready():
-        story_chan = []
-        for g in client.guilds:
-            for c in g.channels:
-                if c.name == 'announcements':
-                    story_chan.append(c)
-        if story_update:
-            #send a story update to the story channel
-            for c in story_chan:
-                await c.send('@everyone `WHAT COLLEGE FOOTBALL WILL LOOK LIKE IN THE FUTURE #' + str(next) + ':` ' + link)
-        await client.close()
-
-    def read_token():
-        token = None
-        try:
-            with open('./token.txt','r') as fp:
-                token = fp.readlines()[0].strip('\n')
-        except:
-            print('Token file not found')
-        return token
-
-    token = read_token()
-    if token is not None:
-        client.run(token)
-    else:
-        pass
+    fq.send_updates(server_conf, rss_conf, [], ['update_20020'])
