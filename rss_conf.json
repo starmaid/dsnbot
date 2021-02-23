@@ -23,6 +23,38 @@
             "last_val": "Blog: First Image From Perseverance on Mars",
             "last_time": "Thu, 18 Feb 2021 21:32:47 +0000",
             "msg_template": "`Update for NASA Percy Blog:` "
+        },
+        "spacenews": {
+            "url": "https://spacenews.com/feed/",
+            "field": "title",
+            "last_url": "",
+            "last_val": "",
+            "last_time": "",
+            "msg_template": "`Update for spacenews:` "
+        },
+        "satnews": {
+            "url": "https://news.satnews.com/feed",
+            "field": "title",
+            "last_url": "",
+            "last_val": "",
+            "last_time": "",
+            "msg_template": "`Update for satnews:` "
+        },
+        "outofcontextdscp": {
+            "url": "https://nocontxtdscp.tumblr.com/rss",
+            "field": "title",
+            "last_url": "",
+            "last_val": "",
+            "last_time": "",
+            "msg_template": "`Update for outofcontextdscp:` "
+        },
+        "fuckyoudscpifyouread": {
+            "url": "https://bigleighshellcars.tumblr.com/rss",
+            "field": "title",
+            "last_url": "",
+            "last_val": "",
+            "last_time": "",
+            "msg_template": "`Update for fuckyoudscpifyouread:` "
         }
     },
     "custom": {

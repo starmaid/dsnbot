@@ -5,6 +5,9 @@
         ],
         "762137919535185960": [
             "sbnation_jonbois"
+        ],
+        "642587435540414487": [
+            "spacenews"
         ]
     },
     "334418046129274882": {
@@ -20,6 +23,22 @@
         ],
         "771382619635449876": [
             "perseverancemarsrove"
+        ],
+        "775629122214428702": [
+            "outofcontextdscp"
+        ],
+        "799726830617624595": [
+            "fuckyoudscpifyouread"
+        ]
+    },
+    "811328194178449408": {
+        "permissions": [
+            "rss"
+        ],
+        "812470410322378792": [
+            "perseverancemarsrove",
+            "spacenews",
+            "satnews"
         ]
     }
 }

@@ -4,6 +4,13 @@
 
 a discord bot for a 17776-20020 fan server.
 
+
+[![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
+
+[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
+
+![](https://64.media.tumblr.com/492c4bdd1957dd8ababfd488774a9d23/553e3eda2a5e1ab5-3b/s250x400/2aec36695bdef578e48ad59b62ca137e3f716b0d.png) ![](https://64.media.tumblr.com/d72775691bc5351b58f7014790861de4/553e3eda2a5e1ab5-51/s250x400/615edb0ac42a0c53e79377c67efc8b631e2eefbf.png)
+
 add to server: 
 
 https://discordapp.com/oauth2/authorize?client_id=762139991534469150&permissions=523328&scope=bot

@@ -2,6 +2,7 @@ import feedparser
 import requests
 import discord
 from dateutil import parser
+from datetime import datetime
 
 class FeedQuery:
     def __init__(self):
@@ -20,22 +21,25 @@ class FeedQuery:
         rssfile = feedparser.parse(feed_dict['url'])
         
         # sort by the updated time parsed
-        sortedlist = sorted(rssfile['entries'], key=lambda k: parser.parse(k['updated'], fuzzy=True), reverse=True)
-        entry = sortedlist[0]
+        try:
+            sortedlist = sorted(rssfile['entries'], key=lambda k: parser.parse(k['updated'], fuzzy=True), reverse=True)
+            entry = sortedlist[0]
 
-        # Check the field and read the value
-        updated = entry[feed_dict['field']]
-        # check the updated time
-        time = entry['updated']
-        # get the link too
-        link = entry['link']
+            # Check the field and read the value
+            updated = entry[feed_dict['field']]
+            # check the updated time
+            time = entry['updated']
+            # get the link too
+            link = entry['link']
 
-        # compare to previous values 
-        if updated != feed_dict['last_val']:
-            update = True
-            feed_dict['last_val'] = updated
-            feed_dict['last_url'] = link
-            feed_dict['last_time'] = time
+            # compare to previous values 
+            if updated != feed_dict['last_val']:
+                update = True
+                feed_dict['last_val'] = updated
+                feed_dict['last_url'] = link
+                feed_dict['last_time'] = time
+        except:
+            print(str(datetime.now()) + ': error for ' + feed_dict['url'])
         
         return(update)
 

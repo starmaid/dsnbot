@@ -42,6 +42,7 @@ class Bot(commands.Bot):
         self.add_command(self.add)
         self.add_command(self.ls)
         self.add_command(self.rm)
+        self.add_command(self.refresh)
         self.add_command(self.about)
         self.add_command(self.quit)
         self.add_command(self.launch)
@@ -85,6 +86,7 @@ class Bot(commands.Bot):
         except:
             print(str(datetime.now()) + ': RSS conf file not found')
 
+        return
 
     async def on_ready(self):
         connect_account()  # logs into aternos
@@ -110,6 +112,7 @@ class Bot(commands.Bot):
                 '\n./ls [all, active]    lists all feeds, or active feeds in this server' + \
                 '\n./add [params]*       adds a feed. See ./help add' + \
                 '\n./rm [channel] [name] removes a feed from the server. use ./ls to find names' + \
+                '\n./refresh             refreshes the files in memory. for debug purposes.' + \
                 '\n./about               shows an about message for the bot' + \
                 '\n./quit                shuts down the bot (only works for starmaid)'
 
@@ -249,7 +252,7 @@ class Bot(commands.Bot):
                     else:
                         server_conf[str(guild_id)] = {'permissions': ['rss'], new_chan: [new_name]}
                 except:
-                    msg = '`feed failed to be imported. make sure the link is correct, or contact an administrator`'
+                    msg = '`failed to import. make sure the link is correct, or contact an administrator`'
                     err = True
 
         if not err:
@@ -314,7 +317,7 @@ class Bot(commands.Bot):
                 msg += '\nList of all feeds updated via DSNbot:'
                 msg += '\nRSS'
                 for feed in rss_conf['rss'].keys():
-                    msg += '\n    ' + feed + ' ' + rss_conf['rss'][feed]['url']
+                    msg += '\n    ' + feed.ljust(30) + ' ' + rss_conf['rss'][feed]['url']
 
                 msg += '\nCUSTOM'
                 for feed in rss_conf['custom'].keys():
@@ -396,6 +399,34 @@ class Bot(commands.Bot):
             
         # send confirmation message
         print(str(datetime.now()) + ': ' + msg)
+        await ctx.send(msg)
+        return
+
+
+    @commands.command(pass_context=True)
+    async def refresh(ctx):
+        """refresh files in memory"""
+        global server_conf
+        global rss_conf
+
+        msg = '`'
+
+        try:
+            with open('./server_conf.json', 'r') as fp:
+                server_conf = json.load(fp)
+        except:
+            print(str(datetime.now()) + ': Server conf file not found')
+            msg += 'error with server configuration, '
+
+        try:
+            with open('./rss_conf.json', 'r') as fp:
+                rss_conf = json.load(fp)
+        except:
+            print(str(datetime.now()) + ': RSS conf file not found')
+            msg += 'error with rss configuration, '
+
+        msg += 'refreshed`'
+
         await ctx.send(msg)
         return
 
