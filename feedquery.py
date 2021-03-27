@@ -24,11 +24,16 @@ class FeedQuery:
         try:
             sortedlist = sorted(rssfile['entries'], key=lambda k: parser.parse(k['updated'], fuzzy=True), reverse=True)
             entry = sortedlist[0]
-
-            # Check the field and read the value
-            updated = entry[feed_dict['field']]
             # check the updated time
             time = entry['updated']
+        except:
+            print(str(datetime.now()) + ': error for sorting ' + feed_dict['url'])
+            entry = rssfile['entries'][0]
+            time = ''
+
+        try:
+            # Check the field and read the value
+            updated = entry[feed_dict['field']]
             # get the link too
             link = entry['link']
 
@@ -39,7 +44,7 @@ class FeedQuery:
                 feed_dict['last_url'] = link
                 feed_dict['last_time'] = time
         except:
-            print(str(datetime.now()) + ': error for ' + feed_dict['url'])
+            print(str(datetime.now()) + ': other error for ' + feed_dict['url'])
         
         return(update)
 

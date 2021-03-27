@@ -6,9 +6,7 @@
         "762137919535185960": [
             "sbnation_jonbois"
         ],
-        "642587435540414487": [
-            "spacenews"
-        ]
+        "642587435540414487": []
     },
     "334418046129274882": {
         "permissions": [
@@ -16,7 +14,8 @@
             "minecraft"
         ],
         "334419415133061121": [
-            "sbnation_jonbois"
+            "sbnation_jonbois",
+            "sbnation_alexr"
         ],
         "760264630102392853": [
             "ao3_17776_tag"
@@ -29,6 +28,9 @@
         ],
         "799726830617624595": [
             "fuckyoudscpifyouread"
+        ],
+        "334919705209077770": [
+            "apod"
         ]
     },
     "811328194178449408": {
@@ -36,9 +38,7 @@
             "rss"
         ],
         "812470410322378792": [
-            "perseverancemarsrove",
-            "spacenews",
-            "satnews"
+            "perseverancemarsrove"
         ]
     }
 }

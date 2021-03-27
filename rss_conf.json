@@ -3,17 +3,17 @@
         "sbnation_jonbois": {
             "url": "https://www.sbnation.com/authors/jon-bois/rss",
             "field": "title",
-            "last_url": "https://www.sbnation.com/secret-base/22286086/three-ball-walk-two-pitch-strikeout-dorktown",
-            "last_val": "Dorktown: The three-ball walk, and other counting failures",
-            "last_time": "2021-02-16T15:15:00-05:00",
-            "msg_template": "@Satellites `new Jon Bois article:` "
+            "last_url": "https://www.sbnation.com/secret-base/2021/3/15/22332689/dorktown-jets-chiefs-penalty-yards-mark-sanchez",
+            "last_val": "Dorktown: The god-awful drive that changed NFL history",
+            "last_time": "2021-03-15T18:00:50-04:00",
+            "msg_template": "@everyone `new Jon Bois article:` "
         },
         "ao3_17776_tag": {
             "url": "https://archiveofourown.org/tags/17107986/feed.atom",
             "field": "title",
-            "last_url": "https://archiveofourown.org/works/29023008",
-            "last_val": "Marathon",
-            "last_time": "2021-02-21T22:51:35-05:00",
+            "last_url": "https://archiveofourown.org/works/30072465",
+            "last_val": "The Del Amo Game",
+            "last_time": "2021-03-15T23:28:46-04:00",
             "msg_template": "`New work posted in the AO3 tag:` "
         },
         "perseverancemarsrove": {
@@ -27,34 +27,58 @@
         "spacenews": {
             "url": "https://spacenews.com/feed/",
             "field": "title",
-            "last_url": "",
-            "last_val": "",
-            "last_time": "",
+            "last_url": "https://spacenews.com/satellite-launches-fueling-race-to-connect-out-of-reach-devices/",
+            "last_val": "Satellite launches fueling race to connect out of reach devices",
+            "last_time": "Sat, 27 Mar 2021 17:39:53 +0000",
             "msg_template": "`Update for spacenews:` "
         },
         "satnews": {
             "url": "https://news.satnews.com/feed",
             "field": "title",
-            "last_url": "",
-            "last_val": "",
-            "last_time": "",
+            "last_url": "https://news.satnews.com/2021/03/26/global-commercial-satiot-services-started-by-myriota/",
+            "last_val": "Global, Commercial SatIoT Services Started By Myriota",
+            "last_time": "Fri, 26 Mar 2021 18:25:49 +0000",
             "msg_template": "`Update for satnews:` "
         },
         "outofcontextdscp": {
             "url": "https://nocontxtdscp.tumblr.com/rss",
             "field": "title",
-            "last_url": "",
-            "last_val": "",
-            "last_time": "",
+            "last_url": "https://nocontxtdscp.tumblr.com/post/645636423685373952",
+            "last_val": "Prisma: e-girl this e-boy that. what about e-talian",
+            "last_time": "Sun, 14 Mar 2021 09:01:14 -0400",
             "msg_template": "`Update for outofcontextdscp:` "
         },
         "fuckyoudscpifyouread": {
             "url": "https://bigleighshellcars.tumblr.com/rss",
             "field": "title",
+            "last_url": "https://bigleighshellcars.tumblr.com/post/645315016485208064",
+            "last_val": "father mushroom invanushka ushka aa o",
+            "last_time": "Wed, 10 Mar 2021 18:52:37 -0500",
+            "msg_template": "`Update for fuckyoudscpifyouread:` "
+        },
+        "sbnation_alexr": {
+            "url": "https://www.sbnation.com/authors/alex-rubenstein/rss",
+            "field": "title",
+            "last_url": "https://www.sbnation.com/secret-base/22343402/john-stockton-utah-jazz-nba-assists-karl-malone-jerry-sloan",
+            "last_val": "Dorktown: John Stockton once would\u2019ve led the NBA in assists even if he\u2019d only played 60 games",
+            "last_time": "2021-03-26T12:00:00-04:00",
+            "msg_template": "<@&334817140819361802> `new Alex Rubenstein article:` "
+        },
+        "todaysbird": {
+            "url": "https://todaysbird.tumblr.com/rss",
+            "field": "title",
+            "last_url": "https://todaysbird.tumblr.com/post/646822452436123648",
+            "last_val": "effervescentaardvark:Great grey owl (my photo)",
+            "last_time": "Sat, 27 Mar 2021 11:12:40 -0400",
+            "msg_template": "`Update for todaysbird:` "
+        },
+        "apod": {
+            "url": "https://apod.nasa.gov/apod.rss",
+            "field": "title",
             "last_url": "",
             "last_val": "",
             "last_time": "",
-            "msg_template": "`Update for fuckyoudscpifyouread:` "
+            "msg_template": "`Update for apod:` "
         }
     },
     "custom": {
