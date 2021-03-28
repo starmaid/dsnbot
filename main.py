@@ -19,10 +19,12 @@ import random
 from random import choice
 import json
 import feedparser
+import shutil
+import requests
 
-from connect_and_launch import get_status, get_number_of_players
-from connect_and_launch import connect_account, quitBrowser, get_server_info
-from connect_and_launch import start_server, stop_server
+#from connect_and_launch import get_status, get_number_of_players
+#from connect_and_launch import connect_account, quitBrowser, get_server_info
+#from connect_and_launch import start_server, stop_server
 
 from dsnquery import DSNQuery
 
@@ -50,6 +52,7 @@ class Bot(commands.Bot):
         self.add_command(self.status)
         self.add_command(self.stop)
         self.add_command(self.info)
+        self.add_command(self.cam)
         
         self.read_token()
         self.load_config()
@@ -89,7 +92,7 @@ class Bot(commands.Bot):
         return
 
     async def on_ready(self):
-        connect_account()  # logs into aternos
+        #connect_account()  # logs into aternos
         await asyncio.sleep(2)
         print(str(datetime.now()) + ': Logged on with aternos')
 
@@ -437,6 +440,22 @@ class Bot(commands.Bot):
         msg = DSNQuery().poll()
         await ctx.send(msg)
 
+    @commands.command(pass_context=True)
+    async def cam(ctx):
+        """grab some cam footage"""
+        async with ctx.channel.typing():
+            url = "http://plants.local:8080/?action=snapshot"
+            imagefilename = "./out.jpg"
+
+            r = requests.get(url, stream = True)
+            r.raw.decode_content = True
+
+            with open(imagefilename,'wb') as f:
+                shutil.copyfileobj(r.raw, f)
+
+            image = discord.File(imagefilename, filename="plants.png")
+
+            await ctx.send(content="", file=image)
 
 
     async def on_command_error(self, ctx, error):

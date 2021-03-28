@@ -27,9 +27,9 @@
         "spacenews": {
             "url": "https://spacenews.com/feed/",
             "field": "title",
-            "last_url": "https://spacenews.com/satellite-launches-fueling-race-to-connect-out-of-reach-devices/",
-            "last_val": "Satellite launches fueling race to connect out of reach devices",
-            "last_time": "Sat, 27 Mar 2021 17:39:53 +0000",
+            "last_url": "https://spacenews.com/space-force-finalizing-plan-to-procure-broadband-from-low-orbit-satellites/",
+            "last_val": "Space Force finalizing plan to procure broadband from low-orbit satellites",
+            "last_time": "Sat, 27 Mar 2021 22:46:07 +0000",
             "msg_template": "`Update for spacenews:` "
         },
         "satnews": {
@@ -60,23 +60,23 @@
             "url": "https://www.sbnation.com/authors/alex-rubenstein/rss",
             "field": "title",
             "last_url": "https://www.sbnation.com/secret-base/22343402/john-stockton-utah-jazz-nba-assists-karl-malone-jerry-sloan",
-            "last_val": "Dorktown: John Stockton once would\u2019ve led the NBA in assists even if he\u2019d only played 60 games",
+            "last_val": "Dorktown: John Stockton once would’ve led the NBA in assists even if he’d only played 60 games",
             "last_time": "2021-03-26T12:00:00-04:00",
             "msg_template": "<@&334817140819361802> `new Alex Rubenstein article:` "
         },
         "todaysbird": {
             "url": "https://todaysbird.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://todaysbird.tumblr.com/post/646822452436123648",
-            "last_val": "effervescentaardvark:Great grey owl (my photo)",
-            "last_time": "Sat, 27 Mar 2021 11:12:40 -0400",
+            "last_url": "https://todaysbird.tumblr.com/post/646858606276476928",
+            "last_val": "pigeongay:some guys",
+            "last_time": "Sat, 27 Mar 2021 20:47:19 -0400",
             "msg_template": "`Update for todaysbird:` "
         },
         "apod": {
             "url": "https://apod.nasa.gov/apod.rss",
             "field": "title",
-            "last_url": "",
-            "last_val": "",
+            "last_url": "https://apod.nasa.gov/apod/astropix.html",
+            "last_val": "SuitSat 1: A Spacesuit Floats Free",
             "last_time": "",
             "msg_template": "`Update for apod:` "
         }
