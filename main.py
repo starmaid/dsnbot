@@ -22,9 +22,9 @@ import feedparser
 import shutil
 import requests
 
-#from connect_and_launch import get_status, get_number_of_players
-#from connect_and_launch import connect_account, quitBrowser, get_server_info
-#from connect_and_launch import start_server, stop_server
+from connect_and_launch import get_status, get_number_of_players
+from connect_and_launch import connect_account, quitBrowser, get_server_info
+from connect_and_launch import start_server, stop_server
 
 from dsnquery import DSNQuery
 
@@ -53,6 +53,7 @@ class Bot(commands.Bot):
         self.add_command(self.stop)
         self.add_command(self.info)
         self.add_command(self.cam)
+        self.add_command(self.tvb)
         
         self.read_token()
         self.load_config()
@@ -92,7 +93,7 @@ class Bot(commands.Bot):
         return
 
     async def on_ready(self):
-        #connect_account()  # logs into aternos
+        connect_account()  # logs into aternos
         await asyncio.sleep(2)
         print(str(datetime.now()) + ': Logged on with aternos')
 
@@ -440,11 +441,25 @@ class Bot(commands.Bot):
         msg = DSNQuery().poll()
         await ctx.send(msg)
 
+
     @commands.command(pass_context=True)
     async def cam(ctx):
         """grab some cam footage"""
-        async with ctx.channel.typing():
+
+        # read the message
+        cmd = ctx.message.content.lower().split()
+        l = len(cmd)
+
+        if len == 2:
+            if cmd[1] == "plants":
+                url = "http://plants.local:8080/?action=snapshot"
+            elif cmd[1] == "printer":
+                url = "http://octopi.local/webcam/?action=snapshot"
+        else:
             url = "http://plants.local:8080/?action=snapshot"
+
+        
+        async with ctx.channel.typing():
             imagefilename = "./out.jpg"
 
             r = requests.get(url, stream = True)
@@ -464,6 +479,19 @@ class Bot(commands.Bot):
             msg = "`command not recognized.`"
             await ctx.send(msg)
     
+
+    @commands.command(pass_context=True)
+    async def tvb(ctx):
+        """react to the message"""
+        emote = None
+
+        for e in ctx.guild.emojis:
+            if e.name == "TiVoglioBene":
+                emote = e
+        
+        print(emote)
+        await ctx.message.add_reaction(emote)
+
 
     @commands.command(pass_context=True)
     async def quit(ctx):

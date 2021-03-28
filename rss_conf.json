@@ -60,16 +60,16 @@
             "url": "https://www.sbnation.com/authors/alex-rubenstein/rss",
             "field": "title",
             "last_url": "https://www.sbnation.com/secret-base/22343402/john-stockton-utah-jazz-nba-assists-karl-malone-jerry-sloan",
-            "last_val": "Dorktown: John Stockton once would’ve led the NBA in assists even if he’d only played 60 games",
+            "last_val": "Dorktown: John Stockton once would\u2019ve led the NBA in assists even if he\u2019d only played 60 games",
             "last_time": "2021-03-26T12:00:00-04:00",
             "msg_template": "<@&334817140819361802> `new Alex Rubenstein article:` "
         },
         "todaysbird": {
             "url": "https://todaysbird.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://todaysbird.tumblr.com/post/646858606276476928",
-            "last_val": "pigeongay:some guys",
-            "last_time": "Sat, 27 Mar 2021 20:47:19 -0400",
+            "last_url": "https://todaysbird.tumblr.com/post/646916285584785408",
+            "last_val": "tinuart:\n\na horned lark, for agnes! I hadn\u2019t come across these...",
+            "last_time": "Sun, 28 Mar 2021 12:04:06 -0400",
             "msg_template": "`Update for todaysbird:` "
         },
         "apod": {
