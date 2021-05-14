@@ -11,9 +11,9 @@
         "ao3_17776_tag": {
             "url": "https://archiveofourown.org/tags/17107986/feed.atom",
             "field": "title",
-            "last_url": "https://archiveofourown.org/works/30072465",
-            "last_val": "The Del Amo Game",
-            "last_time": "2021-03-15T23:28:46-04:00",
+            "last_url": "https://archiveofourown.org/works/28999683",
+            "last_val": "home is where the heart is",
+            "last_time": "2021-05-07T21:01:04-04:00",
             "msg_template": "`New work posted in the AO3 tag:` "
         },
         "perseverancemarsrove": {
@@ -27,56 +27,56 @@
         "spacenews": {
             "url": "https://spacenews.com/feed/",
             "field": "title",
-            "last_url": "https://spacenews.com/space-force-finalizing-plan-to-procure-broadband-from-low-orbit-satellites/",
-            "last_val": "Space Force finalizing plan to procure broadband from low-orbit satellites",
-            "last_time": "Sat, 27 Mar 2021 22:46:07 +0000",
+            "last_url": "https://spacenews.com/axelspace-series-c-round/",
+            "last_val": "Axelspace raises $24 million in Series C round",
+            "last_time": "Thu, 13 May 2021 23:00:51 +0000",
             "msg_template": "`Update for spacenews:` "
         },
         "satnews": {
             "url": "https://news.satnews.com/feed",
             "field": "title",
-            "last_url": "https://news.satnews.com/2021/03/26/global-commercial-satiot-services-started-by-myriota/",
-            "last_val": "Global, Commercial SatIoT Services Started By Myriota",
-            "last_time": "Fri, 26 Mar 2021 18:25:49 +0000",
+            "last_url": "https://news.satnews.com/2021/05/13/danish-ministry-of-defence-awards-intelsat-general-igc-with-6-year-contract-for-milsatcom-igc-successfully-demos-flexground-service-for-usaf/",
+            "last_val": "Danish Ministry Of Defence Awards Intelsat General (IGC) With 6 Year Contract For MILSATCOM + IGC Successfully Demos FlexGround Service For USAF",
+            "last_time": "Fri, 14 May 2021 05:53:04 +0000",
             "msg_template": "`Update for satnews:` "
         },
         "outofcontextdscp": {
             "url": "https://nocontxtdscp.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://nocontxtdscp.tumblr.com/post/645636423685373952",
-            "last_val": "Prisma: e-girl this e-boy that. what about e-talian",
-            "last_time": "Sun, 14 Mar 2021 09:01:14 -0400",
+            "last_url": "https://nocontxtdscp.tumblr.com/post/650243678645911552",
+            "last_val": "Prisma: .I AM DROWNINGTHERE IS NO SIGN OF LANDUoSAT-2:...",
+            "last_time": "Tue, 04 May 2021 05:31:35 -0400",
             "msg_template": "`Update for outofcontextdscp:` "
         },
         "fuckyoudscpifyouread": {
             "url": "https://bigleighshellcars.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://bigleighshellcars.tumblr.com/post/645315016485208064",
-            "last_val": "father mushroom invanushka ushka aa o",
-            "last_time": "Wed, 10 Mar 2021 18:52:37 -0500",
+            "last_url": "https://bigleighshellcars.tumblr.com/post/649736382353391616",
+            "last_val": "still might rip your nuts off",
+            "last_time": "Wed, 28 Apr 2021 15:08:20 -0400",
             "msg_template": "`Update for fuckyoudscpifyouread:` "
         },
         "sbnation_alexr": {
             "url": "https://www.sbnation.com/authors/alex-rubenstein/rss",
             "field": "title",
             "last_url": "https://www.sbnation.com/secret-base/22343402/john-stockton-utah-jazz-nba-assists-karl-malone-jerry-sloan",
-            "last_val": "Dorktown: John Stockton once would\u2019ve led the NBA in assists even if he\u2019d only played 60 games",
+            "last_val": "Dorktown: John Stockton once would’ve led the NBA in assists even if he’d only played 60 games",
             "last_time": "2021-03-26T12:00:00-04:00",
             "msg_template": "<@&334817140819361802> `new Alex Rubenstein article:` "
         },
         "todaysbird": {
             "url": "https://todaysbird.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://todaysbird.tumblr.com/post/646916285584785408",
-            "last_val": "tinuart:\n\na horned lark, for agnes! I hadn\u2019t come across these...",
-            "last_time": "Sun, 28 Mar 2021 12:04:06 -0400",
+            "last_url": "https://todaysbird.tumblr.com/post/651104490390536192",
+            "last_val": "hannahmcgill:Time for your daily dose of snail...",
+            "last_time": "Thu, 13 May 2021 17:33:49 -0400",
             "msg_template": "`Update for todaysbird:` "
         },
         "apod": {
             "url": "https://apod.nasa.gov/apod.rss",
             "field": "title",
             "last_url": "https://apod.nasa.gov/apod/astropix.html",
-            "last_val": "SuitSat 1: A Spacesuit Floats Free",
+            "last_val": "M104: The Sombrero Galaxy",
             "last_time": "",
             "msg_template": "`Update for apod:` "
         }

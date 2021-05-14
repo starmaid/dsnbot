@@ -46,6 +46,14 @@ class FeedQuery:
         except:
             print(str(datetime.now()) + ': other error for ' + feed_dict['url'])
         
+        try:
+            # bodge to filter out NSFW fics from A03
+            if "Explicit" in entry['summary']:
+                update = False
+                print(str(datetime.now()) + ': filtered Explicit from ' + feed_dict['url'])
+        except:
+            pass
+        
         return(update)
 
 

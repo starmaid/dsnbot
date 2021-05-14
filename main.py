@@ -28,8 +28,11 @@ import requests
 
 from dsnquery import DSNQuery
 
+import control 
+
 server_conf = None
 rss_conf = None
+ARDUINO = None
 
 class Bot(commands.Bot):
     activity = 'comms monitor ./help'
@@ -54,6 +57,8 @@ class Bot(commands.Bot):
         self.add_command(self.info)
         self.add_command(self.cam)
         self.add_command(self.tvb)
+        self.add_command(self.pan)
+        self.add_command(self.initArduino)
         
         self.read_token()
         self.load_config()
@@ -494,6 +499,55 @@ class Bot(commands.Bot):
 
 
     @commands.command(pass_context=True)
+    async def initArduino(ctx):
+        global ARDUINO
+
+        async with ctx.channel.typing():
+            ARDUINO = control.ArduinoController()
+            await asyncio.sleep(5)
+
+            if ARDUINO.ready == True:
+                msg = "ARDUINO INITIALIZED"
+            else:
+                msg = "INITIALIZATION FAILED"
+
+            msg = "`" + msg + "`"
+            await ctx.send(msg)
+
+        return
+
+
+    @commands.command(pass_context=True)
+    async def pan(ctx):
+        global ARDUINO
+
+        if ARDUINO is None or ARDUINO.ready == False:
+            msg = "ARDUINO NOT INITIALIZED. USE ./initArduino"
+        else:
+            cmd = ctx.message.content.lower().split()
+            l = len(cmd)
+            if l == 2:
+                angle = int(cmd[1])
+                if angle <= 90 and angle >= -90:
+                    # do it
+                    async with ctx.channel.typing():
+                        ARDUINO.pan(angle)
+                        msg = "MOVE COMPLETE"
+                else:
+                    msg = "PLEASE ENTER AN ANGLE BETWEEN -90 AND 90"
+            else:
+                msg = "INVALID COMMAND. ENTER A VALUE"
+
+        msg = "`" + msg + "`"
+        await ctx.send(msg)
+
+        return
+
+
+
+
+
+    @commands.command(pass_context=True)
     async def quit(ctx):
         # quits the bot.
         if str(ctx.message.author) == 'starmaid#6925':
@@ -505,6 +559,13 @@ class Bot(commands.Bot):
         
         print(str(datetime.now()) + ': Shutting down')
         return
+
+
+
+
+
+
+
 
     ### ========== MINECRAFT COMMANDS ========== ###
 
