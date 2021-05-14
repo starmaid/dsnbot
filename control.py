@@ -19,7 +19,7 @@ class ArduinoController():
         
         for port in self.ports:
             try:
-                self.arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=0.5)
+                self.arduino = serial.Serial(port=port, baudrate=9600, timeout=0.5)
                 x = self.arduino.readline()
                 while b"done" not in x:
                     #print(x)
