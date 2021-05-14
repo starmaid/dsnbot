@@ -10,19 +10,27 @@ class ArduinoController():
         #self.moves = asyncio.Queue(maxsize=200)
         #self.moves = queue.Queue()
         self.ready = False
+        self.ports = ['/dev/ttyACM0',
+                      '/dev/ttyACM1',
+                      '/dev/ttyACM2',
+                      'COM3',
+                      'COM4']
         
-        try:
-            #self.arduino = serial.Serial(port='COM4', baudrate=9600, timeout=0.5)
-            self.arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=0.5)
-            x = self.arduino.readline()
-            while b"done" not in x:
-                #print(x)
+        
+        for port in self.ports:
+            try:
+                self.arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=0.5)
                 x = self.arduino.readline()
-                time.sleep(0.5)
+                while b"done" not in x:
+                    #print(x)
+                    x = self.arduino.readline()
+                    time.sleep(0.5)
 
-            self.ready = True
-        except:
-            pass
+                self.ready = True
+                break
+            except:
+                pass
+
 
     def move(self, x, y):
         text = "G1 X{:.2f} Y{:.2f}".format(x,y)
