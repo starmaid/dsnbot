@@ -17,6 +17,8 @@ https://discordapp.com/oauth2/authorize?client_id=762139991534469150&permissions
 
 ## Functionality
 
+![](./dsn.gif)
+
 ### Currently Implemented:
 - alerts for 20020 updates (done, but will be updated for 20021)
 - alerts for new articles by jon on SBNATION
@@ -25,6 +27,7 @@ https://discordapp.com/oauth2/authorize?client_id=762139991534469150&permissions
 - ask what DSN is talking to right now by scraping https://eyes.nasa.gov/dsn/dsn.html
 - add custom RSS feeds to update in certain channels. checked every 15 minutes
 - add currently-implemented custom feed updates as scheduled tasks in any channel. (read how to contribute to add your own)
+- control my CNC robot arm via chat commands (half implemented)
 
 ### Panned Capabilities:
 - Integrate Twitter API for jon, scoragami, NFL tweets updates
