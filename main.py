@@ -178,8 +178,12 @@ class Bot(commands.Bot):
     @commands.command(pass_context=True)
     async def p(ctx):
         """Proxy the message through dsnbot. gives me a cool leg up on the roleplay"""
-        await ctx.send(" ".join(ctx.message.content.split()[1:]))
-        await ctx.message.delete()      
+
+        if str(ctx.message.author) == 'starmaid#6925':
+            await ctx.send(" ".join(ctx.message.content.split()[1:]))
+            await ctx.message.delete()
+        else:
+            await ctx.send("`I DIDNT SAY THAT`")
         return  
 
 
