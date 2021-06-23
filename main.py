@@ -59,6 +59,7 @@ class Bot(commands.Bot):
         self.add_command(self.tvb)
         self.add_command(self.pan)
         self.add_command(self.initArduino)
+        self.add_command(self.p)
         
         self.read_token()
         self.load_config()
@@ -173,6 +174,12 @@ class Bot(commands.Bot):
 
     # async def on_guild_join(guild):
         # would love to say hi hehe
+
+    @commands.command(pass_context=True)
+    async def p(ctx):
+        await ctx.send(ctx.message.content)
+        await ctx.message.delete()      
+        return  
 
 
     ### ========== UPDATE COMMANDS ========== ###
