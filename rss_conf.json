@@ -11,9 +11,9 @@
         "ao3_17776_tag": {
             "url": "https://archiveofourown.org/tags/17107986/feed.atom",
             "field": "title",
-            "last_url": "https://archiveofourown.org/works/28999683",
-            "last_val": "home is where the heart is",
-            "last_time": "2021-05-07T21:01:04-04:00",
+            "last_url": "https://archiveofourown.org/works/32054653",
+            "last_val": "cheese water",
+            "last_time": "2021-06-19T20:41:01-04:00",
             "msg_template": "`New work posted in the AO3 tag:` "
         },
         "perseverancemarsrove": {
@@ -27,25 +27,25 @@
         "spacenews": {
             "url": "https://spacenews.com/feed/",
             "field": "title",
-            "last_url": "https://spacenews.com/axelspace-series-c-round/",
-            "last_val": "Axelspace raises $24 million in Series C round",
-            "last_time": "Thu, 13 May 2021 23:00:51 +0000",
+            "last_url": "https://spacenews.com/space-development-agency-to-launch-five-satellites-aboard-spacex-rideshare/",
+            "last_val": "Space Development Agency to launch five satellites aboard SpaceX rideshare",
+            "last_time": "Wed, 23 Jun 2021 00:15:34 +0000",
             "msg_template": "`Update for spacenews:` "
         },
         "satnews": {
             "url": "https://news.satnews.com/feed",
             "field": "title",
-            "last_url": "https://news.satnews.com/2021/05/13/danish-ministry-of-defence-awards-intelsat-general-igc-with-6-year-contract-for-milsatcom-igc-successfully-demos-flexground-service-for-usaf/",
-            "last_val": "Danish Ministry Of Defence Awards Intelsat General (IGC) With 6 Year Contract For MILSATCOM + IGC Successfully Demos FlexGround Service For USAF",
-            "last_time": "Fri, 14 May 2021 05:53:04 +0000",
+            "last_url": "https://news.satnews.com/2021/06/22/a-multi-antenna-satellite-link-system-is-completed-by-hiltron-for-german-news-broadcast-system/",
+            "last_val": "A Multi-Antenna Satellite Link System Is Completed By Hiltron For German News Broadcast System",
+            "last_time": "Wed, 23 Jun 2021 05:20:24 +0000",
             "msg_template": "`Update for satnews:` "
         },
         "outofcontextdscp": {
             "url": "https://nocontxtdscp.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://nocontxtdscp.tumblr.com/post/650243678645911552",
-            "last_val": "Prisma: .I AM DROWNINGTHERE IS NO SIGN OF LANDUoSAT-2:...",
-            "last_time": "Tue, 04 May 2021 05:31:35 -0400",
+            "last_url": "https://nocontxtdscp.tumblr.com/post/652699209387114496",
+            "last_val": "Phil: [A photo of Papaya the lizard, chilling on her...",
+            "last_time": "Mon, 31 May 2021 08:01:12 -0400",
             "msg_template": "`Update for outofcontextdscp:` "
         },
         "fuckyoudscpifyouread": {
@@ -67,16 +67,16 @@
         "todaysbird": {
             "url": "https://todaysbird.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://todaysbird.tumblr.com/post/651104490390536192",
-            "last_val": "hannahmcgill:Time for your daily dose of snail...",
-            "last_time": "Thu, 13 May 2021 17:33:49 -0400",
+            "last_url": "https://todaysbird.tumblr.com/post/654718777484804096",
+            "last_val": "today&rsquo;s bird is mr. cheepers",
+            "last_time": "Tue, 22 Jun 2021 15:01:22 -0400",
             "msg_template": "`Update for todaysbird:` "
         },
         "apod": {
             "url": "https://apod.nasa.gov/apod.rss",
             "field": "title",
             "last_url": "https://apod.nasa.gov/apod/astropix.html",
-            "last_val": "M104: The Sombrero Galaxy",
+            "last_val": "STARFORGE: A Star Formation Simulation",
             "last_time": "",
             "msg_template": "`Update for apod:` "
         }
