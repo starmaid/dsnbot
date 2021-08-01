@@ -11,9 +11,9 @@
         "ao3_17776_tag": {
             "url": "https://archiveofourown.org/tags/17107986/feed.atom",
             "field": "title",
-            "last_url": "https://archiveofourown.org/works/32054653",
-            "last_val": "cheese water",
-            "last_time": "2021-06-19T20:41:01-04:00",
+            "last_url": "https://archiveofourown.org/works/32867068",
+            "last_val": "how do you do that?",
+            "last_time": "2021-07-27T23:06:10-04:00",
             "msg_template": "`New work posted in the AO3 tag:` "
         },
         "perseverancemarsrove": {
@@ -27,17 +27,17 @@
         "spacenews": {
             "url": "https://spacenews.com/feed/",
             "field": "title",
-            "last_url": "https://spacenews.com/space-development-agency-to-launch-five-satellites-aboard-spacex-rideshare/",
-            "last_val": "Space Development Agency to launch five satellites aboard SpaceX rideshare",
-            "last_time": "Wed, 23 Jun 2021 00:15:34 +0000",
+            "last_url": "https://spacenews.com/senate-confirms-nasa-cfo/",
+            "last_val": "Senate confirms NASA CFO",
+            "last_time": "Sat, 31 Jul 2021 21:43:12 +0000",
             "msg_template": "`Update for spacenews:` "
         },
         "satnews": {
             "url": "https://news.satnews.com/feed",
             "field": "title",
-            "last_url": "https://news.satnews.com/2021/06/22/a-multi-antenna-satellite-link-system-is-completed-by-hiltron-for-german-news-broadcast-system/",
-            "last_val": "A Multi-Antenna Satellite Link System Is Completed By Hiltron For German News Broadcast System",
-            "last_time": "Wed, 23 Jun 2021 05:20:24 +0000",
+            "last_url": "https://news.satnews.com/2021/08/01/gilat-to-supply-u-s-army-with-high-performance-bucs-for-taccomms/",
+            "last_val": "Gilat To Supply U.S. Army With High Performance BUCs For TacComms",
+            "last_time": "Sun, 01 Aug 2021 17:54:04 +0000",
             "msg_template": "`Update for satnews:` "
         },
         "outofcontextdscp": {
@@ -67,18 +67,26 @@
         "todaysbird": {
             "url": "https://todaysbird.tumblr.com/rss",
             "field": "title",
-            "last_url": "https://todaysbird.tumblr.com/post/654718777484804096",
-            "last_val": "today&rsquo;s bird is mr. cheepers",
-            "last_time": "Tue, 22 Jun 2021 15:01:22 -0400",
+            "last_url": "https://todaysbird.tumblr.com/post/658329630500143104",
+            "last_val": "tiz-aves:\n\n Do you SUCK at identifying birds just like myself? (ᴵ ʷʳᵒᵗᵉ ᵗʰᶦˢ ᵐᵒⁿᵗʰˢ ᵃᵍᵒ ᵃⁿᵈ ᵃᶜᵗᵘᵃˡˡʸ...",
+            "last_time": "Sun, 01 Aug 2021 11:34:20 -0400",
             "msg_template": "`Update for todaysbird:` "
         },
         "apod": {
             "url": "https://apod.nasa.gov/apod.rss",
             "field": "title",
             "last_url": "https://apod.nasa.gov/apod/astropix.html",
-            "last_val": "STARFORGE: A Star Formation Simulation",
+            "last_val": "Pluto in Enhanced Color",
             "last_time": "",
             "msg_template": "`Update for apod:` "
+        },
+        "girlhelp": {
+            "url": "https://cat83y.tumblr.com/rss",
+            "field": "title",
+            "last_url": "https://cat83y.tumblr.com/post/657864637079076864",
+            "last_val": "ghostbrawl:testosteroni and...",
+            "last_time": "Tue, 27 Jul 2021 08:23:28 -0400",
+            "msg_template": "`Update for girlhelp:` "
         }
     },
     "custom": {

@@ -477,17 +477,20 @@ class Bot(commands.Bot):
 
         
         async with ctx.channel.typing():
-            imagefilename = "./out.jpg"
+            imagefilename = "./" + str(datetime.now()).replace(" ","_").replace(":","")[0:15] + ".jpg"
 
-            r = requests.get(url, stream = True)
-            r.raw.decode_content = True
+            try:
+                r = requests.get(url, stream=True, timeout=10)
+                r.raw.decode_content = True
 
-            with open(imagefilename,'wb') as f:
-                shutil.copyfileobj(r.raw, f)
+                with open(imagefilename,'wb') as f:
+                    shutil.copyfileobj(r.raw, f)
 
-            image = discord.File(imagefilename, filename="plants.png")
+                image = discord.File(imagefilename, filename="plants.png")
 
-            await ctx.send(content="", file=image)
+                await ctx.send(content="", file=image)
+            except:
+                await ctx.send("`CAMERA OFFLINE`")
 
 
     async def on_command_error(self, ctx, error):
