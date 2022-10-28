@@ -28,7 +28,7 @@ import requests
 
 from dsnquery import DSNQuery
 
-import control 
+#import control 
 
 server_conf = None
 rss_conf = None
@@ -512,7 +512,7 @@ class Bot(commands.Bot):
         print(emote)
         await ctx.message.add_reaction(emote)
 
-
+    """
     @commands.command(pass_context=True)
     async def initArduino(ctx):
         global ARDUINO
@@ -557,7 +557,7 @@ class Bot(commands.Bot):
         await ctx.send(msg)
 
         return
-
+    """
 
 
 

@@ -1,0 +1,4 @@
+discord
+dateutil
+feedparser
+requests
